@@ -2,6 +2,9 @@
 # [Go to Implementations](./Implementations/Implementations.md)
 <hr/>
 
+
+# CH1
+
 # Go philosophy
 #### Go has a strong enough type system to avoid most careless mistakes found in dynamic languages.
 #### Its type system is simpler compared to other statically typed languages.
@@ -52,6 +55,43 @@ func main() {
 #### After that,a program consists of the declarations of functions, variables,
 #### constants, and types
 #### (introduced by the keywords func, var, const, and type);
+
+<hr/>
+
+# variables
+### you can declare a variable with
+```Go
+s := ""
+var s string
+var s = ""
+var s string = ""
+```
+### some very usefull format expresions
+|sympol                       | mean                                        |
+|:---------------------------:|:--------------------------------------------|
+| `%d`                        | decimal integer                             |
+| `%x` , `%o` , `%b`          | integer in hexadecimal,cotal,binary         |
+| `%f` , `%g` , `%e`          | floating number 3.14 , 3.1415926 , 3.14e+00 |
+| `%t`                        | boolean                                     |
+| `%c`                        | rune (unicode code point)                   |               
+| `%s`                        | string                                      |
+| `%q`                        | quoted string "abc"                         |
+| `%v`                        | any value in a natural format               |
+| `%T`                        | Type of any value                           |
+| `%%`                        | literal percent sign (no operand)
+
+### we will using them on `Printf()` and `Scanf()` a lot !
+ 
+
+
+#### Go comes with an extensive standard library of useful packages, and the Go
+#### community has created and shared many more.
+
+#### Programming is often more about using existing packages than about
+#### writing original code of one’s own.
+
+#### Throughout the book, we will point out a couple of dozen of the most important
+#### standard package
 
 
 

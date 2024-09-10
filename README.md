@@ -13,6 +13,9 @@
 #### and simplicity.
 
 
+
+##### **The most recent release of go now is `1.23.1`**
+
        
 
 
