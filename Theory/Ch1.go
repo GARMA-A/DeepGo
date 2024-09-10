@@ -17,18 +17,18 @@ import (
     "log"
 )
 
-// Echo1 prints its command-line arguments.
 
 func main() {
-    var s, sep string
-    for i := 1; i < len(os.Args); i++ {
-        s += sep + os.Args[i]
-        sep = " "
-    }
-    fmt.Println(s)
+
+    // go actauly see the full package as single file
+    // with one main func to start with 
+    // and the module see the packages as multiple 
+    // files that you need to use it one by one 
+    // to finally complete your project 
+
+
+
 }
-// The first version of echo uses the for loop to iterate over the
-// elements of os.Args, building up the string s with each element
 
 // Echo2 prints its command-line arguments.
 func main2() {
@@ -236,8 +236,7 @@ func fetch(url string, ch chan<- string) {
 }
 
 // Fetchall fetches URLs in parallel and reports their times and sizes.
-
-func main10() {
+func  main10() {
     http.HandleFunc("/", handler) // each request calls handler
     log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }

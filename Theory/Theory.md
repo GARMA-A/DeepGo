@@ -93,6 +93,136 @@ var s string = ""
 #### Throughout the book, we will point out a couple of dozen of the most important
 #### standard package
 
+# CH2
+ 
+# Go has 25 keywords they can’t be used as names.
+```go
+break
+case
+chan
+const
+continue
+default
+defer
+else
+fallthrough
+for
+func
+go
+goto
+if
+import
+interface
+map
+package
+range
+return
+select
+struct
+switch
+type
+var
+```
+
+### In addition, there are about three dozen predeclared
+### names like int and true for built-in constants , types, functions
+
+## Constants: 
+### true  false  iota  nil
+
+## Types:
+###  int  int8  int16  int32  int64 uint
+###  uint8  uint16  uint32  uint64
+###  uintptr float32  float64  complex128  
+### complex64 bool  byte  rune  string  error
+
+
+## Functions:  
+### make  len  cap  new  append
+###  copy  close  deletecomplex  real  imagpanic  recover
+
+
+## Access declared functions and variables in Go
+
+```Go
+package main
+
+
+import("fmt")
+
+// Boiling prints the boiling point of water.
+const boilingF = 212.0
+func main11() {
+    var f = boilingF
+    var c = (f - 32) * 5 / 9
+    fmt.Printf("boiling point = %g°F or %g°C\n", f, c)
+    // Output:
+    // boiling point = 212°F or 100°C
+}
+```
+
+#### The constant boilingFis a package-level declaration (as is
+#### main), whereas the variables fand care
+#### local to the function main.
+
+#### The name of each package-level entity is
+#### visible not only throughout the source file that contains its
+#### declaration, but throughout all the files of the package.
+
+
+#### By contrast, local declarations are visible only within
+#### the function in which they are declared and perhaps only within a
+#### small part of it.
+
+
+## pointers in Go
+```Go
+var x, y int
+fmt.Println(&x == &x, &x == &y, &x == nil) 
+// "true false false"
+/************/
+var p = f()
+func f() *int {
+    v := 1
+    return &v
+}
+
+// each call return a different value
+fmt.Println(f() == f()) // "false"
+
+/**********************/
+
+func incr(p *int) int {
+    *p++ // increments what p points to; does not change p
+    return *p
+}
+
+/***********************/
+
+p := new(int)
+
+fmt.Printf(*p)
 
 
 
+```
+# Types in Go
+```Go
+// Package tempconv performs Celsius and Fahrenheit temperature computations.
+package tempconv
+
+import "fmt"
+
+type Celsius float64
+type Fahrenheit float64
+
+const (
+    AbsoluteZeroC Celsius = -273.15
+    FreezingC     Celsius = 0
+    BoilingC      Celsius = 100
+)
+
+func CToF(c Celsius) Fahrenheit { return Fahrenheit(c*9/5 + 32) }
+
+func FToC(f Fahrenheit) Celsius { return Celsius((f - 32) * 5 / 9) }
+```
