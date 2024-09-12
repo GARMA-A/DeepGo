@@ -1,0 +1,24 @@
+
+
+
+function add(ab:number  ,  ac : number ) : number
+{
+
+}
+
+
+. remove the {} text fast 
+
+hello there ,vim is the best
+hello there ,{} vim is the best
+
+
+
+1. remove the {} text fast 
+
+3. remove the  text fast 
+chello there , {} vim is the best
+
+
+4. remove the  text fast {i'm will train you to use }
+hello there , {} vim is the best

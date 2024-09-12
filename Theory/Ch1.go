@@ -18,17 +18,10 @@ import (
 )
 
 
-func main() {
-
-    // go actauly see the full package as single file
-    // with one main func to start with 
-    // and the module see the packages as multiple 
-    // files that you need to use it one by one 
-    // to finally complete your project 
-
-
+func main111() {
 
 }
+
 
 // Echo2 prints its command-line arguments.
 func main2() {

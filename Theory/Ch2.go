@@ -20,8 +20,6 @@ func main11() {
 
 
 // Ftoc prints two Fahrenheit-to-Celsius conversions
-
-
 func main12() {
     const freezingF, boilingF = 32.0, 212.0
     fmt.Printf("%g°F = %g°C\n", freezingF, fToC(freezingF)) // "32°F = 0°C"
@@ -66,10 +64,13 @@ func arrPrint()  {
    var a []string = []string{"5", "5"}
    a[i], a[j] = a[j], a[i]
   
-    fmt.Printf("i=%d||j=%d|| a[i]=%s || a[j]=%s" , i ,j,a[i],a[j])
  
-    
+    fmt.Printf("i=%d||j=%d|| a[i]=%s || a[j]=%s" , i ,j,a[i],a[j])
 
 }
+
+
+
+
 
 

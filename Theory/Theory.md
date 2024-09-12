@@ -128,18 +128,24 @@ var
 ### names like int and true for built-in constants , types, functions
 
 ## Constants: 
-### true  false  iota  nil
-
+```Go
+true  false  iota  nil
+```
 ## Types:
-###  int  int8  int16  int32  int64 uint
-###  uint8  uint16  uint32  uint64
-###  uintptr float32  float64  complex128  
-### complex64 bool  byte  rune  string  error
+```Go
+  int  int8  int16  int32  int64 uint
+  uint8  uint16  uint32  uint64
+  uintptr float32  float64  complex128  
+ complex64 bool  byte  rune  string  error
+```
 
 
 ## Functions:  
-### make  len  cap  new  append
-###  copy  close  deletecomplex  real  imagpanic  recover
+```Go
+ make  len  cap  new  append  copy
+ close  delete complex  real  imag 
+ panic  recover
+```
 
 
 ## Access declared functions and variables in Go
@@ -200,9 +206,12 @@ func incr(p *int) int {
 /***********************/
 
 p := new(int)
-
 fmt.Printf(*p)
-
+/*
+The new built-in function allocates memory. The first argument is 
+a type, not a value, and the value returned is a pointer to a 
+newly allocated zero value of that type.
+*/
 
 
 ```
@@ -212,6 +221,7 @@ fmt.Printf(*p)
 package tempconv
 
 import "fmt"
+
 
 type Celsius float64
 type Fahrenheit float64
@@ -226,3 +236,175 @@ func CToF(c Celsius) Fahrenheit { return Fahrenheit(c*9/5 + 32) }
 
 func FToC(f Fahrenheit) Celsius { return Celsius((f - 32) * 5 / 9) }
 ```
+
+
+# Ch3
+
+
+## More on Types 
+
+
+### Go provides both signed and unsigned integer arithmetic.
+### There are four distinct sizes of
+### signed integers—8, 16, 32, and 64 bits—represented by the types
+### int8, int16, int32, and int64, and corresponding unsigned
+### versions uint8, uint16, uint32, and uint64
+### the number after the type is the numbers  of bits 
+
+```Go
+	// Boolean type
+	var isGoFun bool = true // stored on 8 bits
+	fmt.Println("Boolean value:", isGoFun)
+
+	// Integer types
+	var intVal int = 42                    // Default integer type (depends on platform architecture) mostly 32 or 64
+	var int8Val int8 = -128                // 8-bit signed integer (-128 to 127)
+       var int16Val int16 = 32767             // 16-bit signed integer (-32,768 to 32,767)
+	var int32Val int32 = 2147483647        // 32-bit signed integer (-2,147,483,648 to 2,147,483,647)
+	var int64Val int64 = 9223372036854775807 // 64-bit signed integer (-2^63 to 2^63-1)
+	fmt.Println("Integers:", intVal, int8Val, int16Val, int32Val, int64Val)
+
+	// Unsigned integer types
+	var uintVal uint = 42                    // Default unsigned integer type (depends on platform architecture)
+	var uint8Val uint8 = 255                 // 8-bit unsigned integer (0 to 255)
+	var uint16Val uint16 = 65535             // 16-bit unsigned integer (0 to 65535)
+	var uint32Val uint32 = 4294967295        // 32-bit unsigned integer (0 to 4,294,967,295)
+	var uint64Val uint64 = 18446744073709551615 // 64-bit unsigned integer (0 to 2^64-1)
+	fmt.Println("Unsigned Integers:", uintVal, uint8Val, uint16Val, uint32Val, uint64Val)
+```
+
+
+## Floating numbers
+
+```Go
+	// Boolean type
+	var isGoFun bool = true
+	fmt.Println("Boolean value:", isGoFun)
+
+	// Integer types
+	var intVal int = 42                    // Default integer type (depends on platform architecture)
+	var int8Val int8 = -128                // 8-bit signed integer (-128 to 127)
+	var int16Val int16 = 32767             // 16-bit signed integer (-32,768 to 32,767)
+	var int32Val int32 = 2147483647        // 32-bit signed integer (-2,147,483,648 to 2,147,483,647)
+	var int64Val int64 = 9223372036854775807 // 64-bit signed integer (-2^63 to 2^63-1)
+	fmt.Println("Integers:", intVal, int8Val, int16Val, int32Val, int64Val)
+
+	// Unsigned integer types
+	var uintVal uint = 42                    // Default unsigned integer type (depends on platform architecture)
+	var uint8Val uint8 = 255                 // 8-bit unsigned integer (0 to 255)
+	var uint16Val uint16 = 65535             // 16-bit unsigned integer (0 to 65535)
+	var uint32Val uint32 = 4294967295        // 32-bit unsigned integer (0 to 4,294,967,295)
+	var uint64Val uint64 = 18446744073709551615 // 64-bit unsigned integer (0 to 2^64-1)
+	fmt.Println("Unsigned Integers:", uintVal, uint8Val, uint16Val, uint32Val, uint64Val)
+
+	// Floating-point types
+	var float32Val float32 = 3.14  // 32-bit floating-point number
+	var float64Val float64 = 3.141592653589793 // 64-bit floating-point number
+	fmt.Println("Floats:", float32Val, float64Val)
+```
+
+
+## Strings 
+
+```Go
+       // normal way
+       var carType string = "BMW"
+       // let go give the type
+       carType := "BMW"
+       // one line declaration
+ 
+	   // String type
+	   var str string = "Hello, Go!"
+	   fmt.Println("String:", str)
+
+       // normal way
+       var carType string = "BMW"
+       // let go give the type
+       carType := "BMW"
+       // one line declaration
+       car,price := "BMW",20_000_000
+
+```
+
+
+## Complex,rune,byte
+
+```Go
+	// Complex number types
+	var complex64Val complex64 = 1 + 2i    // 64-bit complex number
+	var complex128Val complex128 = 3.14 + 2.71i // 128-bit complex number
+	fmt.Println("Complex numbers:", complex64Val, complex128Val)
+
+	// Rune type (alias for int32, represents a Unicode code point)
+	var runeVal rune = 'G'
+	fmt.Println("Rune (character):", runeVal)
+
+	// Byte type (alias for uint8, represents a single byte)
+	var byteVal byte = 255
+	fmt.Println("Byte:", byteVal)
+```
+
+# complex numbers
+
+```Go
+var x complex128 = complex(1, 2) // 1+2i
+var y complex128 = complex(3, 4) // 3+4i
+fmt.Println(x*y)                 // "(-5+10i)"
+fmt.Println(real(x*y))           // "-5"
+fmt.Println(imag(x*y))           // "10"
+
+```
+
+# string
+### string in go are immutabil
+```Go
+var s string = "hello, world"
+mt.Println(s[:5]) // "hello"
+fmt.Println(s[7:]) // "world"
+fmt.Println(s[:])  // "hello, world"
+s[0] = 'w' // compile error: cannot assign to s[0]
+
+```
+
+
+## Go Escape Sequences Table
+
+
+| Escape Sequence | Character Represented       |
+|-----------------|-----------------------------|
+| `\\`            | Backslash (`\`)             |
+| `\'`            | Single Quote (`'`)          |
+| `\"`            | Double Quote (`"`)          |
+| `\n`            | Newline (`\n`)              |
+| `\r`            | Carriage Return (`\r`)      |
+| `\t`            | Tab (`\t`)                  |
+| `\v`            | Vertical Tab (`\v`)         |
+| `\f`            | Form Feed (`\f`)            |
+| `\xNN`          | Hexadecimal (`\xNN`)        |
+| `\uNNNN`        | Unicode (`\uNNNN`)          |
+| `\U00NNNNNN`    | Unicode (`\U00NNNNNN`)      |
+
+**Note:**  
+- `\xNN` represents a character with hexadecimal code `NN`.  
+- `\uNNNN` represents a Unicode character with hexadecimal code `NNNN`.  
+- `\U00NNNNNN` represents a Unicode character with a longer hexadecimal code `00NNNNNN`.
+
+## constants on go 
+
+```Go
+
+const ( 
+	a = 1
+	b 
+	c 
+	d 
+	e 
+	f =2 
+	g 
+)
+fmt.Println(a,b,c,d,e,f) // 1 1 1 1 1 2 2 
+
+```
+
+
+
