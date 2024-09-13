@@ -1,24 +1,45 @@
+/*      *     *    */
+/*      *     *    */
+/*      *     *    */
+/*      *     *    */
+addello there ,vim is the best
+. remove the {} text fast 
+1. remove the {of pro i will yanked it now} text fast 
+
+3. remove the  text fast 
 
 
 
-function add(ab:number  ,  ac : number ) : number
-{
 
-}
+
+chello there , {} vim is the best
+4. remove the  text fast {i'm will train you to use }
+hello there ,{} vim is the best
+var x string = "https://google.com" 
+function add(ab:number  ,  ac : number ) : number{}
+is a mauch 
+
+
+
 
 
 . remove the {} text fast 
 
-hello there ,vim is the best
-hello there ,{} vim is the best
-
-
-
-1. remove the {} text fast 
-
+1. remove the {of pro i will yanked it now} text fast 
 3. remove the  text fast 
+
+
 chello there , {} vim is the best
-
-
 4. remove the  text fast {i'm will train you to use }
+hello there ,{} vim is the best
+var x string = "https://google.com" 
+function add(ab:number  ,  ac : number ) : number{}
+is a mauch 
 hello there , {} vim is the best
+4. remove the  text fast {i'm will train you to use }
+hello there ,{} vim is the best var x string = "https://google.com" 
+function add(ab:number  ,  ac : number ) : number{}
+is a mauch 
+
+
+sdsdsdsfdf
