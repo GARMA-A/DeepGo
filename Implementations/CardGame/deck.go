@@ -9,7 +9,6 @@ import (
 	"strings"
 	"time"
 )
-
 type deck []string
 
 func newDeck() deck{
@@ -43,10 +42,10 @@ func (d deck) print(){
 
 
 
-func deal(d deck , handSize int) (deck, deck){
+// func deal(d deck , handSize int) (deck, deck){
 	
-	return d[:handSize], d[handSize:]
-}
+// 	return d[:handSize], d[handSize:]
+// }
 
 
 
@@ -55,6 +54,10 @@ func (d deck) toString() (string){
    return strings.Join([]string(d), ",\n")
 
 }
+
+
+
+
 
 
 
@@ -80,6 +83,9 @@ func newDeckFromFile(filename string) deck{
 }
 
 
+
+
+
 func (d deck) shuffle()(deck){
        source := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(source)
@@ -90,6 +96,7 @@ func (d deck) shuffle()(deck){
 	}
 	return d
 }
+
 
 
 
