@@ -58,9 +58,6 @@ func (d deck) toString() (string){
 
 
 
-
-
-
 func (d deck) saveToFile(filename string) (error){
   
  return os.WriteFile(filename , []byte(d.toString()), 0666)

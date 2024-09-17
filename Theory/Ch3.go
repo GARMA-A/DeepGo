@@ -1,13 +1,10 @@
 package main
 
+import (
+	"fmt"
+)
 
-import("fmt")
-
-func main(){
-	
-	var p  = new(int)
-
-
-
+func main() {
+	var p = new(int)
+       fmt.Println(p)
 }
-

@@ -14,7 +14,7 @@ type Person struct{
 	contact  ContactInfo
 }
 
-// you can declare it like that
+// you candeclare it like that
 // type Person struct{
 // 	firstName string
 // 	lastName string

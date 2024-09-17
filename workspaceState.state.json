@@ -1,0 +1,1106 @@
+{
+  "workspaceFoldersFilePaths": [
+    "./"
+  ],
+  "symbols": [
+    {
+      "name": "MemStats.GCCPUFraction",
+      "kind": 7,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mstats.go",
+      "start": {
+        "line": 301,
+        "character": 1
+      },
+      "end": {
+        "line": 301,
+        "character": 14
+      }
+    },
+    {
+      "name": "cpu.maxExtendedFunctionInformation",
+      "kind": 12,
+      "containerName": "internal/cpu",
+      "filePath": "/usr/local/go/src/internal/cpu/cpu_x86.go",
+      "start": {
+        "line": 47,
+        "character": 4
+      },
+      "end": {
+        "line": 47,
+        "character": 34
+      }
+    },
+    {
+      "name": "gcCPULimiterState.startGCTransition",
+      "kind": 5,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mgclimit.go",
+      "start": {
+        "line": 99,
+        "character": 28
+      },
+      "end": {
+        "line": 99,
+        "character": 45
+      }
+    },
+    {
+      "name": "gcControllerState.fractionalMarkTime",
+      "kind": 7,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mgcpacer.go",
+      "start": {
+        "line": 274,
+        "character": 1
+      },
+      "end": {
+        "line": 274,
+        "character": 19
+      }
+    },
+    {
+      "name": "gcControllerState.fractionalUtilizationGoal",
+      "kind": 7,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mgcpacer.go",
+      "start": {
+        "line": 346,
+        "character": 1
+      },
+      "end": {
+        "line": 346,
+        "character": 26
+      }
+    },
+    {
+      "name": "mstats.gc_cpu_fraction",
+      "kind": 7,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mstats.go",
+      "start": {
+        "line": 40,
+        "character": 1
+      },
+      "end": {
+        "line": 40,
+        "character": 16
+      }
+    },
+    {
+      "name": "p.gcFractionalMarkTime",
+      "kind": 7,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/runtime2.go",
+      "start": {
+        "line": 715,
+        "character": 1
+      },
+      "end": {
+        "line": 715,
+        "character": 21
+      }
+    },
+    {
+      "name": "runtime.Frame.Function",
+      "kind": 7,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/symtab.go",
+      "start": {
+        "line": 46,
+        "character": 1
+      },
+      "end": {
+        "line": 46,
+        "character": 9
+      }
+    },
+    {
+      "name": "runtime.SetMutexProfileFraction",
+      "kind": 11,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mprof.go",
+      "start": {
+        "line": 885,
+        "character": 5
+      },
+      "end": {
+        "line": 885,
+        "character": 28
+      }
+    },
+    {
+      "name": "runtime._cgo_sigaction",
+      "kind": 12,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/cgo_sigaction.go",
+      "start": {
+        "line": 16,
+        "character": 4
+      },
+      "end": {
+        "line": 16,
+        "character": 18
+      }
+    },
+    {
+      "name": "runtime.activeSweep.isDone",
+      "kind": 5,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mgcsweep.go",
+      "start": {
+        "line": 210,
+        "character": 22
+      },
+      "end": {
+        "line": 210,
+        "character": 28
+      }
+    },
+    {
+      "name": "runtime.advanceEvacuationMark",
+      "kind": 11,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/map.go",
+      "start": {
+        "line": 1363,
+        "character": 5
+      },
+      "end": {
+        "line": 1363,
+        "character": 26
+      }
+    },
+    {
+      "name": "runtime.atomicSpanSetSpinePointer",
+      "kind": 22,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mspanset.go",
+      "start": {
+        "line": 273,
+        "character": 5
+      },
+      "end": {
+        "line": 273,
+        "character": 30
+      }
+    },
+    {
+      "name": "runtime.atomicSpanSetSpinePointer.Load",
+      "kind": 5,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mspanset.go",
+      "start": {
+        "line": 280,
+        "character": 36
+      },
+      "end": {
+        "line": 280,
+        "character": 40
+      }
+    },
+    {
+      "name": "runtime.atomicSpanSetSpinePointer.StoreNoWB",
+      "kind": 5,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mspanset.go",
+      "start": {
+        "line": 287,
+        "character": 36
+      },
+      "end": {
+        "line": 287,
+        "character": 45
+      }
+    },
+    {
+      "name": "runtime.atomicSpanSetSpinePointer.a",
+      "kind": 7,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mspanset.go",
+      "start": {
+        "line": 274,
+        "character": 1
+      },
+      "end": {
+        "line": 274,
+        "character": 2
+      }
+    },
+    {
+      "name": "runtime.callCgoSigaction",
+      "kind": 11,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/cgo_sigaction.go",
+      "start": {
+        "line": 93,
+        "character": 5
+      },
+      "end": {
+        "line": 93,
+        "character": 21
+      }
+    },
+    {
+      "name": "runtime.gcBackgroundUtilization",
+      "kind": 13,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mgcpacer.go",
+      "start": {
+        "line": 36,
+        "character": 1
+      },
+      "end": {
+        "line": 36,
+        "character": 24
+      }
+    },
+    {
+      "name": "runtime.gcCPULimiterState.finishGCTransition",
+      "kind": 5,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mgclimit.go",
+      "start": {
+        "line": 121,
+        "character": 28
+      },
+      "end": {
+        "line": 121,
+        "character": 46
+      }
+    },
+    {
+      "name": "runtime.gcDrainFractional",
+      "kind": 13,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mgcmark.go",
+      "start": {
+        "line": 1095,
+        "character": 1
+      },
+      "end": {
+        "line": 1095,
+        "character": 18
+      }
+    },
+    {
+      "name": "runtime.gcDrainMarkWorkerFractional",
+      "kind": 11,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mgcmark.go",
+      "start": {
+        "line": 1116,
+        "character": 5
+      },
+      "end": {
+        "line": 1116,
+        "character": 32
+      }
+    },
+    {
+      "name": "runtime.gcMarkWorkerFractionalMode",
+      "kind": 13,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mgc.go",
+      "start": {
+        "line": 278,
+        "character": 1
+      },
+      "end": {
+        "line": 278,
+        "character": 27
+      }
+    },
+    {
+      "name": "runtime.neverCallThisFunction",
+      "kind": 22,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/stubs.go",
+      "start": {
+        "line": 280,
+        "character": 5
+      },
+      "end": {
+        "line": 280,
+        "character": 26
+      }
+    },
+    {
+      "name": "runtime.pollFractionalWorkerExit",
+      "kind": 11,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mgc.go",
+      "start": {
+        "line": 299,
+        "character": 5
+      },
+      "end": {
+        "line": 299,
+        "character": 29
+      }
+    },
+    {
+      "name": "runtime.rt_sigaction",
+      "kind": 11,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/os_linux.go",
+      "start": {
+        "line": 543,
+        "character": 5
+      },
+      "end": {
+        "line": 543,
+        "character": 17
+      }
+    },
+    {
+      "name": "runtime.sigaction",
+      "kind": 11,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/cgo_sigaction.go",
+      "start": {
+        "line": 20,
+        "character": 5
+      },
+      "end": {
+        "line": 20,
+        "character": 14
+      }
+    },
+    {
+      "name": "runtime.sigactiont",
+      "kind": 22,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/defs_linux_amd64.go",
+      "start": {
+        "line": 116,
+        "character": 5
+      },
+      "end": {
+        "line": 116,
+        "character": 15
+      }
+    },
+    {
+      "name": "runtime.sigactiont.sa_flags",
+      "kind": 7,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/defs_linux_amd64.go",
+      "start": {
+        "line": 118,
+        "character": 1
+      },
+      "end": {
+        "line": 118,
+        "character": 9
+      }
+    },
+    {
+      "name": "runtime.sigactiont.sa_handler",
+      "kind": 7,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/defs_linux_amd64.go",
+      "start": {
+        "line": 117,
+        "character": 1
+      },
+      "end": {
+        "line": 117,
+        "character": 11
+      }
+    },
+    {
+      "name": "runtime.sigactiont.sa_mask",
+      "kind": 7,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/defs_linux_amd64.go",
+      "start": {
+        "line": 120,
+        "character": 1
+      },
+      "end": {
+        "line": 120,
+        "character": 8
+      }
+    },
+    {
+      "name": "runtime.sigactiont.sa_restorer",
+      "kind": 7,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/defs_linux_amd64.go",
+      "start": {
+        "line": 119,
+        "character": 1
+      },
+      "end": {
+        "line": 119,
+        "character": 12
+      }
+    },
+    {
+      "name": "runtime.sigreturn__sigaction",
+      "kind": 11,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/os_linux.go",
+      "start": {
+        "line": 408,
+        "character": 5
+      },
+      "end": {
+        "line": 408,
+        "character": 25
+      }
+    },
+    {
+      "name": "runtime.sync_atomic_runtime_procPin",
+      "kind": 11,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/proc.go",
+      "start": {
+        "line": 7124,
+        "character": 5
+      },
+      "end": {
+        "line": 7124,
+        "character": 32
+      }
+    },
+    {
+      "name": "runtime.sync_atomic_runtime_procUnpin",
+      "kind": 11,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/proc.go",
+      "start": {
+        "line": 7130,
+        "character": 5
+      },
+      "end": {
+        "line": 7130,
+        "character": 34
+      }
+    },
+    {
+      "name": "runtime.sysSigaction",
+      "kind": 11,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/os_linux.go",
+      "start": {
+        "line": 518,
+        "character": 5
+      },
+      "end": {
+        "line": 518,
+        "character": 17
+      }
+    },
+    {
+      "name": "runtime.traceRegionAllocBlock.traceRegionAllocBlockHeader",
+      "kind": 7,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/traceregion.go",
+      "start": {
+        "line": 30,
+        "character": 1
+      },
+      "end": {
+        "line": 30,
+        "character": 28
+      }
+    },
+    {
+      "name": "runtime.traceShuttingDown",
+      "kind": 11,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/traceruntime.go",
+      "start": {
+        "line": 155,
+        "character": 5
+      },
+      "end": {
+        "line": 155,
+        "character": 22
+      }
+    },
+    {
+      "name": "runtime.waitReasonGCMarkTermination",
+      "kind": 13,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/runtime2.go",
+      "start": {
+        "line": 1090,
+        "character": 1
+      },
+      "end": {
+        "line": 1090,
+        "character": 28
+      }
+    },
+    {
+      "name": "runtime.waitReasonGarbageCollection",
+      "kind": 13,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/runtime2.go",
+      "start": {
+        "line": 1066,
+        "character": 1
+      },
+      "end": {
+        "line": 1066,
+        "character": 28
+      }
+    },
+    {
+      "name": "runtime.waitReasonGarbageCollectionScan",
+      "kind": 13,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/runtime2.go",
+      "start": {
+        "line": 1067,
+        "character": 1
+      },
+      "end": {
+        "line": 1067,
+        "character": 32
+      }
+    },
+    {
+      "name": "scavengerState.targetCPUFraction",
+      "kind": 7,
+      "containerName": "runtime",
+      "filePath": "/usr/local/go/src/runtime/mgcscavenge.go",
+      "start": {
+        "line": 297,
+        "character": 1
+      },
+      "end": {
+        "line": 297,
+        "character": 18
+      }
+    },
+    {
+      "name": "syscall.PTRACE_OLDSETOPTIONS",
+      "kind": 13,
+      "containerName": "syscall",
+      "filePath": "/usr/local/go/src/syscall/zerrors_linux_amd64.go",
+      "start": {
+        "line": 744,
+        "character": 1
+      },
+      "end": {
+        "line": 744,
+        "character": 21
+      }
+    },
+    {
+      "name": "syscall.PTRACE_SETOPTIONS",
+      "kind": 13,
+      "containerName": "syscall",
+      "filePath": "/usr/local/go/src/syscall/zerrors_linux_amd64.go",
+      "start": {
+        "line": 761,
+        "character": 1
+      },
+      "end": {
+        "line": 761,
+        "character": 18
+      }
+    },
+    {
+      "name": "syscall.PtraceSetOptions",
+      "kind": 11,
+      "containerName": "syscall",
+      "filePath": "/usr/local/go/src/syscall/syscall_linux.go",
+      "start": {
+        "line": 969,
+        "character": 5
+      },
+      "end": {
+        "line": 969,
+        "character": 21
+      }
+    },
+    {
+      "name": "syscall.RTM_DELACTION",
+      "kind": 13,
+      "containerName": "syscall",
+      "filePath": "/usr/local/go/src/syscall/zerrors_linux_amd64.go",
+      "start": {
+        "line": 839,
+        "character": 1
+      },
+      "end": {
+        "line": 839,
+        "character": 14
+      }
+    },
+    {
+      "name": "syscall.RTM_GETACTION",
+      "kind": 13,
+      "containerName": "syscall",
+      "filePath": "/usr/local/go/src/syscall/zerrors_linux_amd64.go",
+      "start": {
+        "line": 853,
+        "character": 1
+      },
+      "end": {
+        "line": 853,
+        "character": 14
+      }
+    },
+    {
+      "name": "syscall.RTM_NEWACTION",
+      "kind": 13,
+      "containerName": "syscall",
+      "filePath": "/usr/local/go/src/syscall/zerrors_linux_amd64.go",
+      "start": {
+        "line": 868,
+        "character": 1
+      },
+      "end": {
+        "line": 868,
+        "character": 14
+      }
+    },
+    {
+      "name": "syscall.SO_SECURITY_AUTHENTICATION",
+      "kind": 13,
+      "containerName": "syscall",
+      "filePath": "/usr/local/go/src/syscall/zerrors_linux_amd64.go",
+      "start": {
+        "line": 1029,
+        "character": 1
+      },
+      "end": {
+        "line": 1029,
+        "character": 27
+      }
+    },
+    {
+      "name": "syscall.SYS_RT_SIGACTION",
+      "kind": 13,
+      "containerName": "syscall",
+      "filePath": "/usr/local/go/src/syscall/zsysnum_linux_amd64.go",
+      "start": {
+        "line": 21,
+        "character": 1
+      },
+      "end": {
+        "line": 21,
+        "character": 17
+      }
+    },
+    {
+      "name": "testing.matchStringOnly",
+      "kind": 11,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1836,
+        "character": 5
+      },
+      "end": {
+        "line": 1836,
+        "character": 20
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.CheckCorpus",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1853,
+        "character": 25
+      },
+      "end": {
+        "line": 1853,
+        "character": 36
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.CoordinateFuzzing",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1846,
+        "character": 25
+      },
+      "end": {
+        "line": 1846,
+        "character": 42
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.ImportPath",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1842,
+        "character": 25
+      },
+      "end": {
+        "line": 1842,
+        "character": 35
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.InitRuntimeCoverage",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1857,
+        "character": 25
+      },
+      "end": {
+        "line": 1857,
+        "character": 44
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.MatchString",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1838,
+        "character": 25
+      },
+      "end": {
+        "line": 1838,
+        "character": 36
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.ReadCorpus",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1850,
+        "character": 25
+      },
+      "end": {
+        "line": 1850,
+        "character": 35
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.ResetCoverage",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1854,
+        "character": 25
+      },
+      "end": {
+        "line": 1854,
+        "character": 38
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.RunFuzzWorker",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1849,
+        "character": 25
+      },
+      "end": {
+        "line": 1849,
+        "character": 38
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.SetPanicOnExit0",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1845,
+        "character": 25
+      },
+      "end": {
+        "line": 1845,
+        "character": 40
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.SnapshotCoverage",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1855,
+        "character": 25
+      },
+      "end": {
+        "line": 1855,
+        "character": 41
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.StartCPUProfile",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1839,
+        "character": 25
+      },
+      "end": {
+        "line": 1839,
+        "character": 40
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.StartTestLog",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1843,
+        "character": 25
+      },
+      "end": {
+        "line": 1843,
+        "character": 37
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.StopCPUProfile",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1840,
+        "character": 25
+      },
+      "end": {
+        "line": 1840,
+        "character": 39
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.StopTestLog",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1844,
+        "character": 25
+      },
+      "end": {
+        "line": 1844,
+        "character": 36
+      }
+    },
+    {
+      "name": "testing.matchStringOnly.WriteProfileTo",
+      "kind": 5,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 1841,
+        "character": 25
+      },
+      "end": {
+        "line": 1841,
+        "character": 39
+      }
+    },
+    {
+      "name": "testing.mutexProfileFraction",
+      "kind": 12,
+      "containerName": "testing",
+      "filePath": "/usr/local/go/src/testing/testing.go",
+      "start": {
+        "line": 468,
+        "character": 1
+      },
+      "end": {
+        "line": 468,
+        "character": 21
+      }
+    },
+    {
+      "name": "time.LoadLocation",
+      "kind": 11,
+      "containerName": "time",
+      "filePath": "/usr/local/go/src/time/zoneinfo.go",
+      "start": {
+        "line": 665,
+        "character": 5
+      },
+      "end": {
+        "line": 665,
+        "character": 17
+      }
+    },
+    {
+      "name": "time.LoadLocationFromTZData",
+      "kind": 11,
+      "containerName": "time",
+      "filePath": "/usr/local/go/src/time/zoneinfo_read.go",
+      "start": {
+        "line": 117,
+        "character": 5
+      },
+      "end": {
+        "line": 117,
+        "character": 27
+      }
+    },
+    {
+      "name": "time.ParseInLocation",
+      "kind": 11,
+      "containerName": "time",
+      "filePath": "/usr/local/go/src/time/format.go",
+      "start": {
+        "line": 1033,
+        "character": 5
+      },
+      "end": {
+        "line": 1033,
+        "character": 20
+      }
+    },
+    {
+      "name": "time.leadingFraction",
+      "kind": 11,
+      "containerName": "time",
+      "filePath": "/usr/local/go/src/time/format.go",
+      "start": {
+        "line": 1572,
+        "character": 5
+      },
+      "end": {
+        "line": 1572,
+        "character": 20
+      }
+    },
+    {
+      "name": "time.loadLocation",
+      "kind": 11,
+      "containerName": "time",
+      "filePath": "/usr/local/go/src/time/zoneinfo_read.go",
+      "start": {
+        "line": 530,
+        "character": 5
+      },
+      "end": {
+        "line": 530,
+        "character": 17
+      }
+    },
+    {
+      "name": "unicode.Logical_Order_Exception",
+      "kind": 12,
+      "containerName": "unicode",
+      "filePath": "/usr/local/go/src/unicode/tables.go",
+      "start": {
+        "line": 7206,
+        "character": 1
+      },
+      "end": {
+        "line": 7206,
+        "character": 24
+      }
+    },
+    {
+      "name": "unicode.Terminal_Punctuation",
+      "kind": 12,
+      "containerName": "unicode",
+      "filePath": "/usr/local/go/src/unicode/tables.go",
+      "start": {
+        "line": 7225,
+        "character": 1
+      },
+      "end": {
+        "line": 7225,
+        "character": 21
+      }
+    },
+    {
+      "name": "unicode._Logical_Order_Exception",
+      "kind": 12,
+      "containerName": "unicode",
+      "filePath": "/usr/local/go/src/unicode/tables.go",
+      "start": {
+        "line": 6359,
+        "character": 4
+      },
+      "end": {
+        "line": 6359,
+        "character": 28
+      }
+    },
+    {
+      "name": "unicode._Terminal_Punctuation",
+      "kind": 12,
+      "containerName": "unicode",
+      "filePath": "/usr/local/go/src/unicode/tables.go",
+      "start": {
+        "line": 7046,
+        "character": 4
+      },
+      "end": {
+        "line": 7046,
+        "character": 25
+      }
+    }
+  ],
+  "activeFileDiagnostics": [
+    {
+      "start": {
+        "line": 325,
+        "character": 2
+      },
+      "end": {
+        "line": 325,
+        "character": 3
+      },
+      "message": "Missing property \"key\".",
+      "severity": 1
+    }
+  ],
+  "activeTextEditor": {
+    "selections": [
+      {
+        "anchor": {
+          "line": 352,
+          "character": 16
+        },
+        "active": {
+          "line": 352,
+          "character": 16
+        },
+        "isReversed": true
+      }
+    ],
+    "documentFilePath": "c:/Users/krkr/AppData/Roaming/Code/User/keybindings.json",
+    "visibleRanges": [
+      {
+        "start": {
+          "line": 336,
+          "character": 0
+        },
+        "end": {
+          "line": 360,
+          "character": 1
+        }
+      }
+    ],
+    "languageId": "jsonc"
+  },
+  "debugConsoleOutput": "",
+  "terminalBuffer": "%                                                  \r \r\u001b]2;girgis@GERGES:/mnt/c/Users/krkr/Desktop\u0007\u001b]1;../krkr/Desktop\u0007\u001b]7;file://GERGES/mnt/c/Users/krkr/Desktop\u001b\\\n\u001b]633;D\u0007\u001b]633;P;Cwd=/mnt/c/Users/krkr/Desktop\u0007\n\r\u001b]633;A\u0007\r               \r\n\r [/mnt/c/Users/krkr/Desktop]\r\n girgis  \u001b]633;B\u0007\u001b=",
+  "terminalSelection": "",
+  "terminalShellType": "bash",
+  "repoContexts": [],
+  "notebookDocumentFilePaths": []
+}

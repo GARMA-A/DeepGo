@@ -18,7 +18,7 @@
 
 
 ## Tha main Book of this Repo       
-<img src="cover.png" height="600px" width="300px" />
+<img src="cover.png" height="600px" width="400px" />
 
 
 

@@ -1,10 +1,11 @@
 # [Go to Theory](./Theory/Theory.md)
 # [Go back](../README.md)
+
 <hr/>
 
 # cards game
 
-### reciver function
+### receiver function
 
 ```Go
 package main
@@ -17,42 +18,49 @@ func (d deck) print(){
 
 	for i, card := range d {
 		fmt.Println(i,card)
-		
+
 	}
 
 }
 
 ```
-### so reciver functions is functions that works 
+
+### so receiver functions is functions that works
+
 ### on variables that we made
-## see that 
+
+## see that
 
 ```Go
 package main
 
 func main() {
- cards := deck{"Ace of Diamonds", newCard()};	
+ cards := deck{"Ace of Diamonds", newCard()};
  cards.print()
 
 }
 ```
+
 #### cards now can access the print funtion because it type is deck
 
-## the model function of go contain three parts 
-### 1. reciver
+## the model function of go contain three parts
+
+### 1. receiver
+
 ### 2. arguments
+
 ### 3. returner
+
 ```Go
 type deck []string
 deck.toString()
-//   reciver            // arguments       // return value
+//   receiver            // arguments       // return value
 func (d deck) saveToFile(filename string) (error){
-  
+
  return os.WriteFile(filename , []byte(d.toString()), 0666)
 
 }
 ```
-
 
 ## full read write file example
 
@@ -105,6 +113,7 @@ newDeckFromFile("my_cards").print()
 }
 
 ```
+
 # StructsFolder
 
 #### struct in go it's very similar to that on c and c++
@@ -112,8 +121,8 @@ newDeckFromFile("my_cards").print()
 ```Go
 
 type ContactInfo struct{
-	email string 
-	zipCode int 
+	email string
+	zipCode int
 }
 
 type Person struct{
@@ -123,11 +132,11 @@ type Person struct{
 
 alex := Person{firstName: "Alex", lastName: "Anderson"}
 alex2 := Person{"Alex","Anderson"}
-var alex3 Person 
+var alex3 Person
 fmt.Println(alex) // {Alex Anderson}
 fmt.Println(alex2)  // {Alex Anderson}
 fmt.Println(alex3)  // {}
-fmt.Printf("%+v",alex) // {firstName:Alex lastName:Anderson}%  
+fmt.Printf("%+v",alex) // {firstName:Alex lastName:Anderson}%
 
 ```
 
@@ -135,8 +144,8 @@ fmt.Printf("%+v",alex) // {firstName:Alex lastName:Anderson}%
 
 
 type ContactInfo struct{
-	email string 
-	zipCode int 
+	email string
+	zipCode int
 }
 
 type Person struct{
@@ -155,7 +164,7 @@ jim := Person{
 }
 
 fmt.Printf("%+v",jim)
-// {firstName:Jim lastName:Party contact:{email:jim@gmail.com zipCode:94000}}% 
+// {firstName:Jim lastName:Party contact:{email:jim@gmail.com zipCode:94000}}%
 
 
 ```
@@ -168,6 +177,7 @@ func (p *Person) updateName(newFirstName string){
 }
 
 ```
+
 ### if you know c or c++ it,s the same thing
 
 ```Go
@@ -179,6 +189,7 @@ func (p *Person) updateName(newFirstName string){
 func main()
 {
 
+
 	girgis := Person{
 		firstName: "Girgis",
 		lastName: "Girgis",
@@ -189,14 +200,13 @@ func main()
 
 	}
 
-
      var girgisPointer *Person = &girgis
      girgisPointer.updateName("Girgis2")
      girgis.print()
 	// {firstName:Girgis2 lastName:Girgis contact:{email:girgis@email.com zipCode:94000}}
-	/*****************/  
+	/*****************/
        /* you can just do that*/
-	/*****************/  
+	/*****************/
       girgis.updateName("Girgis3")
       girgis.print()
 	// {firstName:Girgis3 lastName:Girgis contact:{email:girgis@email.com zipCode:94000}}
@@ -207,16 +217,16 @@ func main()
 ### we need to talk about pass by value and refernce in Go
 
 #### so whenever you create struct and pass it to function as
-#### we see go create new copy of it inside the function by default(pass by value)
-#### but that not the case for every thing 
 
+#### we see go create new copy of it inside the function by default(pass by value)
+
+#### but that not the case for every thing
 
 ```go
 
 func updateSlice(s []string){
 	s[0] = "Bye"
 }
-
 
 func main()
 {
@@ -227,19 +237,28 @@ fmt.Println(mySlice)
 // output : [Bye There How Are You]
 }
 ```
+
 #### what is happen why the output like that ?
-#### you need to understand the difference between 
+
+#### you need to understand the difference between
+
 #### the `value types` and the `refernce types` in Go
+
 ## value types
+
 ### `int` `float` `string` `bool` `struct`
+
 ## Referce types
+
 ### `map` `slice` `channels` `pointer` `function`
+
 #### so the value type(pass by value) if you want to change it's value inside function
+
 #### you need to use pointers
+
 #### the refernce type by default will change tha main element on any function(pass by refernce)
+
 #### so you need to make manualy copy of it first if you do not want to change the original
-
-
 
 # map Folder
 
@@ -262,7 +281,7 @@ func main(){
 	fmt.Println(colors1)
 	fmt.Println(colors3)
 	fmt.Println(colors2)
-	// output: 
+	// output:
 	// map[]
 	// map[]
 	// map[blue:#0000ff green:#008000 orange:#ff4500 red:#ff0000]
@@ -282,9 +301,10 @@ func main(){
 	// map[white:#ffffff]
 
 ```
-### you need to use `[]` on mape not the  `.key` like struct
-### delete value from map
 
+### you need to use `[]` on mape not the `.key` like struct
+
+### delete value from map
 
 ```Go
 
@@ -292,15 +312,14 @@ func main(){
 	colors3 := make(map[string]string)
 	colors3["white"] = "#ffffff"
 
-       delete(colors3 , "white")	
+       delete(colors3 , "white")
        fmt.Println(colors3)
-	// output 
+	// output
 	// map[]
 
 
 
 ```
-
 
 ### iterate over a map
 
@@ -331,22 +350,124 @@ func main(){
 
 ```
 
-
 ## `Map` vs `struct`
-|Map                               |Struct                    |
-|----------------------------------|--------------------------|
-| Reference Type                   | Value Type               |
-| all keys must be with same type  | all key are just some vars names |
-| all values must be with same type |  each value can be with different type |
-|Key are indexed we can iterate throw | key do not support indexing no iteration |
-| do not need to know all the keys at compile | must know all the keys at compile |
 
-
-
-
+| Map                                         | Struct                                   |
+| ------------------------------------------- | ---------------------------------------- |
+| Reference Type                              | Value Type                               |
+| all keys must be with same type             | all key are just some vars names         |
+| all values must be with same type           | each value can be with different type    |
+| Key are indexed we can iterate throw        | key do not support indexing no iteration |
+| do not need to know all the keys at compile | must know all the keys at compile        |
 
 # Interface Folder
 
+### why i need Interface
+
+#### so if i have some thing like that
+
+```Go
+
+
+type englishBot struct{}
+type spanishBot struct{}
+
+
+
+func (englishBot) getGreeting() string {
+	//vert unique logic for generating an english greeting
+	return "Hi There!"
+}
+
+
+func (spanishBot) getGreeting() string {
+	//vert unique logic for generating an spanish greeting
+	return "Hola!"
+}
+/* ERORR HERE 👇*/
+func printGreeting(eb englishBot){
+	fmt.Println(eb.getGreeting())
+}
+
+func printGreeting(sb spanishBot){
+	fmt.Println(sb.getGreeting())
+}
+/*Connot declare two functions with same name without unique receiver*/
+
+func main(){
+eb := englishBot{}
+sb := spanishBot{}
+
+printGreeting(eb)
+printGreeting(sb)
+
+}
+
+```
+
+### this is not valid code because you can't declare two functions with the same name of course
+
+### if you on java or C# there is something called funcion overloading to do that but not in go
+
+### there is solution with receiver and with Interface
+
+## solution with interface
+
+```Go
+
+type englishBot struct{}
+type spanishBot struct{}
+/* new ! 🆕 */
+type bot interface {
+	getGreeting() string
+}
+/*******/
+
+func (englishBot) getGreeting() string {
+	//vert unique logic for generating an english greeting
+	return "Hi There!"
+}
+
+
+func (spanishBot) getGreeting() string
+	//vert unique logic for generating an spanish greeting
+	return "Hola!"
+}
+
+func printGreeting(b bot){
+	fmt.Println(b.getGreeting())
+}
+
+func main(){
+eb := englishBot{}
+sb := spanishBot{}
+
+printGreeting(eb)
+printGreeting(sb)
+
+}
+
+```
+
+### what i just did is instead of create the same function twice
+
+### i make type `bot` and tell my go programm to notice any type
+
+### on my programm and detect if it has on it `getGreeting() string`
+
+### if it has it then automaticly make them also of type `bot`
+
+### that mean i can now use `englishBot` `spanishBot` as type bot
+
+### and any type has getGreeting() on it also will be of type `bot`
+
+## normal types vs interface type
+
+| topic  | normal type                        | interface type                      |
+| ------ | ---------------------------------- | ----------------------------------- |
+| syntax | type name (int,float64,map,struct) | type name interface                 |
+| assign | can assign them to many vars       | can't assign to any another var     |
+| usage  | make vars static types             | add extra functionalty to some type |
 
 
 
