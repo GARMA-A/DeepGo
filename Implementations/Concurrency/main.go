@@ -5,29 +5,42 @@ import (
 	"net/http"
 )
 
+func main() {
 
-func main(){
+	links := []string{
+		"https://www.google.com",
+		"https://www.facebook.com",
+		"https://www.amazon.com",
+		"https://www.stackoverflow.com",
+	}
+	// the part that is commented is another way of doing the same
+	// thing with array instead of one chanel
+	
+	// c := make([]chan string, len(links))
 
- links := []string{
-	"https://www.google.com",
-	"https://www.facebook.com",
-	"https://www.amazon.com",
-	"https://www.stackoverflow.com",
- }
- for _, link := range links {
-       checkLink(link)
- } 
- 
+	
+       c:= make(chan string)
+	 
+	for _, link := range links {
+		go checkLink(link, c)
+	}
+
+	// for i,_ := range(links) {
+	// 	fmt.Println(<-c[i])
+	// }
+
+	for range(links) {
+		fmt.Println(<-c)
+	}
 }
 
+func checkLink(link string, c chan string) {
+	_, err := http.Get(link)
 
-func checkLink(link string){
+	if err != nil {
+		c <- link + " might be down!"
+		return
+	}
 
- _, err := http.Get(link)
- if err != nil {
-	 fmt.Println(link, "might be down!")
- }
- fmt.Println(link, "is up!")
-
+	c <- link + " is up"
 }
-

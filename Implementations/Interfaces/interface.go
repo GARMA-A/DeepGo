@@ -1,5 +1,4 @@
 package main
-
 import "fmt"
 
 
@@ -40,3 +39,4 @@ func (englishBot) getGreeting() string {
 	//vert unique logic for generating an english greeting
 	return "Hi There!"
 }
+

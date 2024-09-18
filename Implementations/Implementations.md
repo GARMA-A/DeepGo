@@ -439,12 +439,12 @@ func printGreeting(b bot){
 }
 
 func main(){
-eb := englishBot{}
-sb := spanishBot{}
 
-printGreeting(eb)
-printGreeting(sb)
+	eb := englishBot{}
+	sb := spanishBot{}
 
+	printGreeting(eb)
+	printGreeting(sb)
 }
 
 ```
