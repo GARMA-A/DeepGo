@@ -80,9 +80,30 @@ var s string = ""
 | `%T`                        | Type of any value                           |
 | `%%`                        | literal percent sign (no operand)
 
-### we will using them on `Printf()` and `Scanf()` a lot !
- 
+### When printing numbers using the fmt package, we can control the radix and for mat with the
+### %d, %o, and %x verbs, as shown in this example:
 
+```go
+o := 0666    // convert from octal to decimal on first output
+fmt.Printf("%d %[1]o %#[1]o\n", o) // "438 666 0666"
+x := int64(0xdeadbeef)
+fmt.Printf("%d %[1]x %#[1]x %#[1]X\n", x)
+// Output:
+// 3735928559 deadbeef 0xdeadbeef 0XDEADBEEF
+```
+### Usually a Printf format string containing multiple % verbs
+### would require the same number of extra operands, but the [1] ‘‘adverbs’’ after % tell Printf to
+### use the first operand over and over again. Second, the # adverb for %o or %x or %X tells Printf
+### to emita 0 or 0x or 0X prefix respectively.
+
+```go 
+ascii := 'a'
+unicode := 'D'
+newline := '\n'
+fmt.Printf("%d %[1]c %[1]q\n", ascii) // "97 a 'a'"
+fmt.Printf("%d %[1]c %[1]q\n", unicode) // "22269 D 'D'"
+fmt.Printf("%d %[1]q\n", newline) // "10 '\n'"
+```
 
 #### Go comes with an extensive standard library of useful packages, and the Go
 #### community has created and shared many more.
@@ -206,7 +227,7 @@ func incr(p *int) int {
 /***********************/
 
 p := new(int)
-fmt.Printf(*p)
+fmt.Printf(*p) // 0
 /*
 The new built-in function allocates memory. The first argument is 
 a type, not a value, and the value returned is a pointer to a 
@@ -273,6 +294,21 @@ func FToC(f Fahrenheit) Celsius { return Celsius((f - 32) * 5 / 9) }
 	fmt.Println("Unsigned Integers:", uintVal, uint8Val, uint16Val, uint32Val, uint64Val)
 ```
 
+## Important Note on types
+### As an example familiar from other contexts, consider this sequence:
+```go
+var apples int32 = 1
+var oranges int16 = 2
+var compote int = apples + oranges // compile error
+```
+### At tempting to compile these three declarations produces an error message:
+### invalid operation: apples + oranges (mismatched types int32 and int16)
+### This typ e mismatch can be fixe d in several ways, most direc tly by converting everything to a
+### common type:
+
+```go
+ var compote = int(apples) + int(oranges)
+```
 
 ## Floating numbers
 
@@ -303,6 +339,33 @@ func FToC(f Fahrenheit) Celsius { return Celsius((f - 32) * 5 / 9) }
 	fmt.Println("Floats:", float32Val, float64Val)
 ```
 
+### A float32 provides approximately six decimal digits of precision, where as a float64
+### prov ides about 15 digits; float64 should be preferred for most purposes because float32
+### computation sacc umulate error rapidly unless one is quite careful
+
+```go
+var f float32 = 16777216 // 1 << 24
+fmt.Println(f == f+1) // "true"!
+```
+### how realy the floating numbers work in Go
+```go
+for x := 0; x < 8; x++ {
+fmt.Printf("x = %d eA = %8.3f\n", x, math.Exp(float64(x)))
+}
+/*
+x = 0 eA =    1.000
+x = 1 eA =    2.718
+x = 2 eA =    7.389
+x = 3 eA =   20.086
+x = 4 eA =   54.598
+x = 5 eA =  148.413
+x = 6 eA =  403.429
+x = 7 eA = 1096.633
+*/
+```
+### notice that when i say %8.3f i say that you must print the number
+### on at least 8 digits width and with three decimal digits of precision
+### if the number smaller than 8 digits add space at left of it or add '0' at the end
 
 ## Strings 
 
@@ -323,6 +386,50 @@ func FToC(f Fahrenheit) Celsius { return Celsius((f - 32) * 5 / 9) }
        carType := "BMW"
        // one line declaration
        car,price := "BMW",20_000_000
+
+```
+### how go handle the Strings
+#### you need to know that strings are just slice of bytes no more so it you try that :
+```go
+
+s := "hello, world"
+fmt.Println(len(s)) // "12"
+fmt.Println(s[0], s[7]) // "104 119" ('h' and 'w')
+
+/**********/
+
+fmt.Println(s[0:5]) // "hello"
+fmt.Println(s[:5]) // "hello"
+fmt.Println(s[7:]) // "world"
+fmt.Println(s[:]) // "hello, world"
+s[0] = 'L' // compile error: cannot assign to s[0]
+// strings in go are immutable
+
+```
+#### Immutability means that it is safe for two copies of a string to share the same underlying
+#### memory, making it cheap to copy strings of anylength. Similarly, a strings and a substring
+#### like s[7:] may safely share the same data, so the substring operation is also cheap. No new
+#### memory is allocated in either case. Figure 3.4 illustrates the arrangement of astring and two
+#### of its subst rings sharing the same underlying byte array.
+
+<img  src="GoStringMemory.png" width="600px" height="300px"/>
+
+#### there is one more inmportant thing on Strings
+#### if you use  `` ` ``  instead of `` ' `` the /n /t ...etc has no effect
+```go
+fmt.Println(`hello, \n\tworld`)
+// hello, \n\tworld
+```
+## convert str -> int || str <- int
+
+```go
+x := 123
+y := fmt.Sprintf("%d", x)
+fmt.Println(y, strconv.Itoa(x)) // "123 123"
+fmt.Println(strconv.FormatInt(int64(x), 2)) // "1111011"
+s := fmt.Sprintf("x=%b", x) // "x=1111011"
+x, err := strconv.Atoi("123") // x is an int
+y, err := strconv.ParseInt("123", 10, 64) // base 10, up to 64 bits
 
 ```
 
@@ -354,18 +461,6 @@ fmt.Println(real(x*y))           // "-5"
 fmt.Println(imag(x*y))           // "10"
 
 ```
-
-# string
-### string in go are immutabil
-```Go
-var s string = "hello, world"
-mt.Println(s[:5]) // "hello"
-fmt.Println(s[7:]) // "world"
-fmt.Println(s[:])  // "hello, world"
-s[0] = 'w' // compile error: cannot assign to s[0]
-
-```
-
 
 ## Go Escape Sequences Table
 
@@ -406,5 +501,12 @@ fmt.Println(a,b,c,d,e,f) // 1 1 1 1 1 2 2
 
 ```
 
-
-
+## Go Bitwise
+``` go
+& //bit wise AND
+| //bit wise OR
+^ //bit wise XOR
+&^ //bit clear (AND NOT)
+<< //left shift
+>> //right shift
+```
