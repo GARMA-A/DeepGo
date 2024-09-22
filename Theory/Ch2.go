@@ -74,3 +74,6 @@ func arrPrint()  {
 
 
 
+func print(){
+    fmt.Println("hello")
+}

@@ -510,3 +510,214 @@ fmt.Println(a,b,c,d,e,f) // 1 1 1 1 1 2 2
 << //left shift
 >> //right shift
 ```
+
+# Ch4
+### Composite Types
+### Arrays
+```go
+var q [3]int = [3]int{1, 2, 3}
+var r [3]int = [3]int{1, 2}
+fmt.Println(r[2]) // "0"
+
+```
+
+### In an array literal, if an ellipsis ‘‘...’’ appears in place of the lengt h, the array lengt h is determined
+### by the number of initializers. The definition of q can be simplified to
+
+```go
+q := [...]int{1, 2, 3}
+fmt.Printf("%T\n", q) // "[3]int"
+```
+```go
+q := [3]int{1, 2, 3}
+q = [4]int{1, 2, 3, 4} // compile error: cannot assign [4]int to [3]int
+```
+### you can define the array as also key value 
+```go
+symbol := [...]string{USD: "$", EUR: "9", GBP: "!", RMB: ")"}
+fmt.Println(RMB, symbol[RMB]) // "3 ")"
+r := [...]int{99: -1}
+// defines an array r with 100 elements, all zero 
+// except for the last, which has value −1.
+```
+## Slice 
+### as the name said the slice is just a pointer , capacity , length
+### point to an array to take a part from it as (len()) 
+
+### declare like that 
+
+```go
+
+	
+	arr := [5]int{1, 2, 3, 4, 5}
+	slice := arr[1:4] // slice contains elements from index 1 to 3
+	fmt.Println("Slice from array:", slice)
+	// Output: Slice from array: [2 3 4]
+
+	slice2 := make([]int, 3, 5) // length 3, capacity 5
+	fmt.Printf("Slice created with make: len=%d cap=%d %v\n", len(slice2), cap(slice2), slice2)
+	// Output: Slice created with make: len=3 cap=5 [0 0 0]
+
+	// Appending to a slice
+	slice2 = append(slice2, 10)
+	fmt.Println("After appending an element:", slice2)
+	// Output: After appending an element: [0 0 0 10]
+
+	// Appending multiple elements
+	slice2 = append(slice2, 20, 30)
+	fmt.Println("After appending multiple elements:", slice2)
+	// Output: After appending multiple elements: [0 0 0 10 20 30]
+
+	// Slicing a slice
+	slice3 := slice2[1:4]
+	fmt.Println("Sliced part of the slice:", slice3)
+	// Output: Sliced part of the slice: [0 0 10]
+
+	// Copying slices
+	dest := make([]int, len(slice3))
+	copy(dest, slice3)
+	fmt.Println("Copied slice:", dest)
+	// Output: Copied slice: [0 0 10]
+
+	// Iterating over a slice
+	fmt.Println("Iterating over slice:")
+	for i, v := range slice3 {
+		fmt.Printf("Index: %d, Value: %d\n", i, v)
+	}
+	// Output:
+	// Iterating over slice:
+	// Index: 0, Value: 0
+	// Index: 1, Value: 0
+	// Index: 2, Value: 10
+
+	// Modifying elements in a slice
+	slice3[0] = 100
+	fmt.Println("After modifying an element:", slice3)
+	// Output: After modifying an element: [100 0 10]
+
+	// Capacity and length of a slice
+	fmt.Printf("Slice length: %d, capacity: %d\n", len(slice3), cap(slice3))
+	// Output: Slice length: 3, capacity: 5
+
+	// Reslicing
+	slice4 := slice2[:2]  // Take elements from start to index 2 (exclusive)
+	slice5 := slice2[2:]  // Take elements from index 2 to the end
+	fmt.Println("Resliced slice 1:", slice4)
+	// Output: Resliced slice 1: [0 0]
+	fmt.Println("Resliced slice 2:", slice5)
+	// Output: Resliced slice 2: [10 20 30]
+
+	// Slices of slices (2D slices)
+	matrix := make([][]int, 2)  // A slice of 2 slices
+	matrix[0] = []int{1, 2, 3}
+	matrix[1] = []int{4, 5, 6}
+	fmt.Println("2D slice (matrix):", matrix)
+	// Output: 2D slice (matrix): [[1 2 3] [4 5 6]]
+
+	// Nil slices
+	var nilSlice []int
+	if nilSlice == nil {
+		fmt.Println("This is a nil slice.")
+	}
+	// Output: This is a nil slice.
+
+	// Capacity growth
+	initialSlice := make([]int, 0, 3)
+	fmt.Printf("Initial capacity: %d\n", cap(initialSlice))
+	// Output: Initial capacity: 3
+	for i := 0; i < 5; i++ {
+		initialSlice = append(initialSlice, i)
+		fmt.Printf("After append %d: len=%d, cap=%d\n", i, len(initialSlice), cap(initialSlice))
+	}
+	// Output:
+	// After append 0: len=1, cap=3
+	// After append 1: len=2, cap=3
+	// After append 2: len=3, cap=3
+	// After append 3: len=4, cap=6
+	// After append 4: len=5, cap=6
+	
+
+```
+
+### so as we said slice is just a pointer to an array 
+### the capacity is the size of the array that the slice point to
+### the length is the size of the slice it self and must be less or equal the capacity
+### you can imagine the slice as struct have pointer and len and cap on it
+```go
+type slice struct{
+	ptr *int
+	cap int 
+	len int
+}
+
+```
+### the ptr point to the head or first element on that slice maybe first element on the array
+### , last element or in the middle 
+
+# the difference between array and slice in go
+
+|slice                                   | array                                   |
+|----------------------------------------| ----------------------------------------|
+| variable length                        | fixed length at compile timw            |
+| passed by reference                    | passed by value (copie them)            |
+| Not Comparable                         |  Comparable by `==`                     |
+| cannot be used as map key              | can be used as map key                  |
+| has copy & append helpers              | no functions made specific for it       |
+| Useful as function parameters          |  useful as pesudo constants             |
+
+## map on go
+
+#### In Go, a map is a reference to a hash table, and a map typ e is writt en map[K]V, where K and V
+### are the types of its keys and values. All of the keys in a given map are of the same type, and all
+### of the values are of the same type 
+
+
+```go
+
+   // Creating a map to store names and ages
+    ages := make(map[string]int)
+
+    // Adding elements to the map
+    ages["Alice"] = 25
+    ages["Bob"] = 30
+    ages["Charlie"] = 22
+
+    // Updating an element
+    ages["Alice"] = 26
+
+    // Retrieving elements
+    fmt.Println("Alice's age:", ages["Alice"])
+    fmt.Println("Bob's age:", ages["Bob"])
+
+    // Checking if a key exists
+    if age, exists := ages["Charlie"]; exists {
+        fmt.Println("Charlie's age:", age)
+    } else {
+        fmt.Println("Charlie not found")
+    }
+
+    // Iterating over the map
+    fmt.Println("All ages:")
+    for name, age := range ages {
+        fmt.Printf("%s is %d years old\n", name, age)
+    }
+
+    // Deleting an element
+    delete(ages, "Bob")
+    fmt.Println("After deleting Bob:", ages)
+
+
+```
+
+### struct in Go
+
+### If all the fields of a struct are comparable, the struct itself is comparable, so two expressions of
+### that type may be compared using == or !=. The == op eration compares the corresponding
+### fields of the two structs in order
+
+### more on the implementation readme file
+
+
+
+
+

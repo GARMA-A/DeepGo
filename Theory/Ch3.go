@@ -5,6 +5,10 @@ import (
 )
 
 func main123() {
-	var p = new(int)
-       fmt.Println(p)
+ 
+ var slice = []int{1, 2, 3, 4, 5}
+ var slice2 = slice[3:]
+ fmt.Println(slice2)	
+
+
 }

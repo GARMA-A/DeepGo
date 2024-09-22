@@ -18,11 +18,6 @@ import (
 )
 
 
-func main111() {
-
-}
-
-
 // Echo2 prints its command-line arguments.
 func main2() {
     s, sep := "", ""
