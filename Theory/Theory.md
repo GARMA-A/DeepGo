@@ -985,7 +985,7 @@ m map[one:1 seven:7 three:0]
 ```
 ### this was actually the easy part now the real challenge
 
-### what is the output of this programm
+### what is the output of this program
 
 ```go
 
@@ -1014,18 +1014,88 @@ the m after do() :  map[100:4]
 */
 ```
 ## defer keyword 
+### defer all it does is instead of excute the statement come after it right away 
+### it will wait until the function ends and excute it
 
-### Syntactic ally, a defer statement is an ordinary function or method call prefixed by the
-### keyword defer. The function and argument expressions are evaluated when the statement is
-### executed, but the actualcall is deferred until the function that contains the defer statement
-### has finished, whether normally, by executing a return statement or falling off the end, or
-### abnormally, by panicking . Any number of calls may be deferred; the yare execut edin the
-### reverse of the order in which they were deferred.
+```go
+
+func main(){
+	a:=10
+	defer fmt.Println(a)
+	a=11
+	fmt.Println(a)
+}
 
 
+// output 11 , 10 
+// the last thing that excute is the defer
+```
+
+### if you have more than one defer on the function it will store all of them on stack
+### one by one and excute what is the top on the stack until the end of $
+
+```go
+  var  x = 10
+  defer fmt.Println("deferred", x)
+  x += 1
+  fmt.Println("not deferred", x)
+  defer fmt.Println("deferred again", x)
+  x += 1
+  fmt.Println("not deferred again", x)
+/*output
+not deferred 11
+not deferred again 12
+deferred again 11
+deferred 10
+*/
+
+```
+### defer only work on function calls so if you want to implement it on variable 
+### you can do that 
+
+```go
+
+func doIt() (a int){
+	defer func ()  {
+		a = 2
+	}()
+	a = 1
+	return 
+}
+// will return 2 
 
 
+```
+## example to new panic and  new recover with defer
+### panic it like throw error and recover() take that error message 
 
+```go
+func main(){
+	fmt.Println("first line of main")
+	defer func(){ 
+		if r:=recover(); r!=nil{
+			fmt.Println("Recovered from ", r)
+			fmt.Println("here on recover  do some clean up or continue the program on other functions") 
+		}
+	}()
+	var input int
+	fmt.Scanln(&input)
+	switch input{
+	case 1:
+		panic("panic1")
+	case 2:
+		panic("panic2")
+	case 3:
+		panic("panic3")
+	default:
+		fmt.Println("default")
+	}
+	 fmt.Println("This won't be printed if there is panic happen")
+}
+```
+
+### we know that defer run after the main() function ends or panic()
+### on that defer function if there is panic happen we can handel it
 
 
 
