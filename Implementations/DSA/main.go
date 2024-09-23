@@ -10,5 +10,5 @@ func main(){
 	s.push(2)
 	s.pop()
 	println(s.peek())
-
+	
 }

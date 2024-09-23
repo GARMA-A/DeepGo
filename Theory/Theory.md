@@ -81,7 +81,111 @@ var s string = ""
 | `%%`                        | literal percent sign (no operand)
 
 ### When printing numbers using the fmt package, we can control the radix and for mat with the
+
 ### %d, %o, and %x verbs, as shown in this example:
+
+## Types of print functions on golang
+
+```go
+
+fmt.Println(...interface{}) (int , error)
+fmt.Printf(string , ...interface{}) (int , error)
+
+
+fmt.Fprintln(io.Writer , ...interface{}) (int , error)
+fmt.Fprintf(io.Writer , string ,...interface{}) (int , error)
+
+
+
+fmt.Sprintln(...interface{}) (string)
+fmt.Sprintf ( string ,...interface{}) (string)
+
+
+```
+
+### simple tricks not mentioned  on the table 
+
+```go
+// show output on 6 digits if there is no digit put white space
+ var x , y  = 1234 , 12
+ fmt.Printf("|%6d|\n|%6d|", x , y)
+ /*
+ |  1234|
+ |    12|%   
+ */
+
+ // add zero instead of the white spaces
+ var x , y  = 1234 , 12
+ fmt.Printf("|%06d|\n|%06d|", x , y)
+ /*
+ |001234|
+ |000012|%  
+ */
+
+
+// if you want the white spaces to be at the end
+ var x , y  = 1234 , 12
+ fmt.Printf("|%-6d|\n|%-6d|", x , y)
+ /*
+|1234  |
+|12    |%                                                                              
+ */
+
+```
+## more tricks
+### slices
+```go
+s := []int{1,2,3}
+fmt.Printf("%T\n" , s)
+fmt.Printf("%v\n" , s)
+fmt.Printf("%#v\n" ,s)
+/*
+[]int
+[1 2 3]
+[]int{1, 2, 3}
+*/
+```
+### Arrays
+```go
+arr := [3]int{1, 2, 3}
+fmt.Printf("%T\n", arr)
+fmt.Printf("%v\n", arr)
+fmt.Printf("%#v\n", arr)
+/*
+[3]int
+[1 2 3]
+[3]int{1, 2, 3}
+*/
+```
+### map
+```go
+
+fmt.Printf("%T\n", m)
+fmt.Printf("%v\n", m)
+fmt.Printf("%#v\n", m)
+/*
+map[string]int
+map[one:1 three:3 two:2]
+map[string]int{"one":1, "three":3, "two":2}
+*/
+
+```
+
+### Functions
+```go
+f := func(x int) int {
+    return x * x
+}
+fmt.Printf("%T\n", f)
+fmt.Printf("%v\n", f)
+fmt.Printf("%#v\n", f)
+/*
+func(int) int
+<function>
+func(int) int
+*/
+
+```
 
 ```go
 o := 0666    // convert from octal to decimal on first output
@@ -716,6 +820,211 @@ type slice struct{
 ### fields of the two structs in order
 
 ### more on the implementation readme file
+
+# Ch5
+### Functions
+#### go model for a function
+
+```go
+func name(parameter-list) (result-list) {
+body
+}
+```
+
+#### The parameter list specifies the names and types of the function’s parameters, which are the
+#### local variables whose values or ar guments are sup plied by the caller. The result list specifies
+#### the types of the values that the function returns. If the function returns one unnamed result
+#### or no results at all, parentheses are optional and usually omitted. Leaving off the result list
+#### entirely declares a function that does not return any value and is called only for its effects. In
+#### the hypot function
+
+### Here are four ways to declare a function with two parameters and one result, all of type int.
+### The blank identifier can be used to emp hasize that a parameter is unused.
+ ```go
+ func add(x int, y int) int { return x + y }
+ func sub(x, y int) (z int) { z = x - y; return }
+ func first(x int, _ int) int { return x }
+ func zero(int, int) int { return 0 }
+ fmt.Printf("%T\n", add) // "func(int, int) int"
+ fmt.Printf("%T\n", sub) // "func(int, int) int"
+ fmt.Printf("%T\n", first) // "func(int, int) int"
+ fmt.Printf("%T\n" , zero) // "func(int, int) int" 
+```
+### Func tions are first-class values in Go: like other values, function values have typ es, and the y
+### may be assig ned to var iables or passed to or retur ned fro m func tions. A func tion value may
+### be cal le d li ke any other function. For example:
+
+```go
+
+func square(n int) int { return n * n }
+func negative(n int) int { return -n }
+func product(m, n int) int { return m * n }
+f := square
+fmt.Println(f(3)) // "9"
+f = negative
+fmt.Println(f(3)) // "-3"
+fmt.Printf("%T\n", f) // "func(int) int"
+f = product // compile error: can't assign f(int, int) int to f(int) int
+
+//The zero value of a function typ e is nil.
+//Cal ling a nil function value causes a panic:
+var f func(int) int
+f(3) // panic: call of nil function
+//Func tion values may be compare d with nil:
+var f func(int) int
+if f != nil {
+f(3)
+}
+// but they are not comparable, so they may not be compared against each other orused as keys
+// in a map.
+```
+## Anonymous Functions
+### A function literal is written like a function
+### declaration, but without a name following the func keyword
+
+```go
+var x = "hello"
+var y string = strings.Map(func(r rune) rune {return r+1}, x)
+
+fmt.Println(x) // hello
+fmt.Println(y) // ifmmp
+
+```
+
+```go
+
+func squares() func() int {
+	var x int
+	return func() int {
+		x++
+		return x * x
+	}
+}
+func main() {
+	f := squares()
+	fmt.Println(f()) // "1"
+	fmt.Println(f()) // "4"
+	fmt.Println(f()) // "9"
+	fmt.Println(f()) // "16"
+}
+```
+## Variadic Functions 
+
+### A variadic fun cti on is one that can be cal le d with var ying numbers of arguments.
+
+```go
+
+func sum(vals ...int) int {
+	total := 0
+	for _, val := range vals {
+		total += val
+	}
+	return total
+}
+
+func main(){
+	var sm = sum(1,2,3,4,5)
+	fmt.Println(sm) // 15 
+}
+
+```
+### how it works under the hood 
+### Implicitly, the caller allocates an array, copies the arguments into it, and passes a slice of the
+### entire array to the function
+## like that 👇
+```go
+values := []int{1, 2, 3, 4}
+fmt.Println(sum(values...)) // "10"
+
+```
+### Although the ...int parameter behaves like a slice within the function body, the type of a
+### variadic function is distinct from the type of a function with an ordinary slice parameter.
+
+```go
+
+func f(...int) {}
+func g([]int) {}
+fmt.Printf("%T\n", f) // "func(...int)"
+fmt.Printf("%T\n", g) // "func([]int)"
+
+```
+## Some Tricks
+
+### There’s no such thing as "pass by reference" in Go.
+
+- When you pass a slice, you're actually passing a descriptor of the underlying array.
+- If you modify the slice, you're modifying the array it describes, but you're passing the descriptor (the slice), not the array’s actual memory address.
+- same to maps ...etc
+
+### Watch this video to understand more:
+[Watch Here](https://youtu.be/wj0hUjRHkPs?list=PLoILbKo9rG3skRCj37Kn5Zj803hhiuRK6)
+
+## more tricks on functions
+### tell me what is the output of this programm
+```go
+func do(m1 map[string]int){
+	m1["three"] = 0
+	m1 = make(map[string] int)
+	m1["four"] = 4
+	fmt.Println("the m1 :" , m1)
+}
+
+func main(){
+	m := map[string]int{"one":1,"seven":7,"three":3}
+	do(m)
+	fmt.Println("m" , m)
+}
+
+```
+### the output
+```go
+/*
+the m1 : map[four:4]
+m map[one:1 seven:7 three:0]
+*/
+```
+### this was actually the easy part now the real challenge
+
+### what is the output of this programm
+
+```go
+
+func do(m1 *map[rune]int){
+	(*m1)['c'] = 0
+	*m1 = make(map[rune]int)
+	(*m1)['d'] = 4
+	fmt.Println("the m1 :" , m1)
+}
+
+func main(){
+	m:= map[rune]int{'d':1 , 'g':2 , 'h':3}
+	fmt.Println("the m : " , m )
+	do(&m)
+	fmt.Println("the m after do() : " , m)
+}
+
+```
+### the output
+
+```go
+/*
+the m :  map[100:1 103:2 104:3]
+the m1 : &map[100:4]
+the m after do() :  map[100:4]
+*/
+```
+## defer keyword 
+
+### Syntactic ally, a defer statement is an ordinary function or method call prefixed by the
+### keyword defer. The function and argument expressions are evaluated when the statement is
+### executed, but the actualcall is deferred until the function that contains the defer statement
+### has finished, whether normally, by executing a return statement or falling off the end, or
+### abnormally, by panicking . Any number of calls may be deferred; the yare execut edin the
+### reverse of the order in which they were deferred.
+
+
+
+
 
 
 

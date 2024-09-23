@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func reverse(s []int) {
 
@@ -41,8 +43,31 @@ func howCopyWork(){
 	}
 }
 
-func main() {
-
+func sum(vals ...int) int {
+	total := 0
+	for _, val := range vals {
+		total += val
+	}
+	return total
 }
+
+
+func do(m1 *map[rune]int){
+	(*m1)['c'] = 0
+	*m1 = make(map[rune]int)
+	(*m1)['d'] = 4
+	fmt.Println("the m1 :" , m1)
+}
+
+func main(){
+	m:= map[rune]int{'d':1 , 'g':2 , 'h':3}
+	fmt.Println("the m : " , m )
+	do(&m)
+	fmt.Println("the m after do() : " , m)
+}
+
+
+
+
 
 

@@ -7,7 +7,7 @@
 *.dll
 *.so
 *.dylib
-
+**/workspaceState.state.json
 # Test binary, built with `go test -c`
 *.test
 
