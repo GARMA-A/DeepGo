@@ -78,6 +78,7 @@ var s string = ""
 | `%q`                        | quoted string "abc"                         |
 | `%v`                        | any value in a natural format               |
 | `%T`                        | Type of any value                           |
+| `%p`                        | pointer value (show memory address)
 | `%%`                        | literal percent sign (no operand)
 
 ### When printing numbers using the fmt package, we can control the radix and for mat with the
@@ -98,7 +99,7 @@ fmt.Fprintf(io.Writer , string ,...interface{}) (int , error)
 
 
 fmt.Sprintln(...interface{}) (string)
-fmt.Sprintf ( string ,...interface{}) (string)
+fmt.Sprintf( string ,...interface{}) (string)
 
 
 ```
@@ -1068,7 +1069,6 @@ func doIt() (a int){
 ```
 ## example to new panic and  new recover with defer
 ### panic it like throw error and recover() take that error message 
-
 ```go
 func main(){
 	fmt.Println("first line of main")
@@ -1094,9 +1094,111 @@ func main(){
 }
 ```
 
-### we know that defer run after the main() function ends or panic()
+### we know that defer run after the main() function ends or after panic()
 ### on that defer function if there is panic happen we can handel it
 
+## Closures
+```go
+
+func fibo() func() int {
+	a, b := 0, 1
+  return func() int {
+    a, b = b, a+b
+    return b
+  }
+}
+
+func main(){
+
+  var a = fibo()
+  fmt.Println(a())
+  fmt.Println(a())
+  fmt.Println(a())
+  fmt.Println(a())
+}
+// output
+// 1 2 3 5 8
+```
+### variables `a` and `b` on fibo will keep exist until the main function end
+### we store a and b on the heap for long life time  
+```go
+func do(d func()){
+	d()
+}
+
+func main(){
+	for i:=0 ; i<4 ; i++ {
+		v:= func(){
+			fmt.Printf("%d @ %p \n" , i , &i)
+		}
+		do(v)
+	}
+}
+// output 
+// 0 @ 0xc0000141a8
+// 1 @ 0xc0000141a8
+// 2 @ 0xc0000141a8
+// 3 @ 0xc0000141a8
+
+```
+
+### so why all of `i`'s come with the same memory address ?
+> because they are all the same i but update the value on each iteration 
+### look at this version of the same code 
+```go
+func main(){
+	s:=make([]func() , 4)
+	for i := 0 ; i<4 ; i++{
+		s[i] = func(){
+			fmt.PrintF("%d @ %p \n" , i , &i)
+		}
+	}
+	
+	for i:= 0 ; i <4 ; i++ {
+		s[i]()
+	}
+}
+// output
+// 4 @ 0xc00009e0f8
+// 4 @ 0xc00009e0f8
+// 4 @ 0xc00009e0f8
+// 4 @ 0xc00009e0f8
+
+```
+### if i do simple change  `i:=i` 
+```go
+
+func main(){
+	s:=make([]func() , 4)
+	for i := 0 ; i<4 ; i++{
+		i:=i
+		s[i] = func(){
+			fmt.PrintF("%d @ %p \n" , i , &i)
+		}
+	}
+	
+	for i:= 0 ; i <4 ; i++ {
+		s[i]()
+	}
+}
+// output
+// 0 @ 0xc0000141a8
+// 1 @ 0xc0000141b0
+// 2 @ 0xc0000141b8
+// 3 @ 0xc0000141c0
+```
+### now we are take new copy and address new memory on each iteration
+### now each clusure has it's own value of i and place on memory for i
+
+
+# Ch6
+## Methods
+
+### there is no universally accepted definition of object-oriented programming, for our
+### purposes, an object is simply a value or variable that has methods, and a method is a function
+### associated with a particular type. An object-oriented program is one that uses methods to
+### express the properties and operations of each data structure so that clients need not access the
+### object’s representation directly.
 
 
 
