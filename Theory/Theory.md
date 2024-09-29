@@ -1190,6 +1190,34 @@ func main(){
 ### now we are take new copy and address new memory on each iteration
 ### now each clusure has it's own value of i and place on memory for i
 
+## new Test 🆕
+```go
+type user struct{name string ; count int}
+
+func addTo(u *user) {u.count++}
+
+func main(){
+
+	users := []user{{"alice" , 0} , {"bob" , 0}}
+
+	alice := &users[0]
+	amy := user{"amy" , 1}
+
+	users = append(users, amy)
+
+	addTo(alice)
+      Println(users)
+
+}
+
+```
+### the output is `[{alice 0} {bob 0} {amy 1}]` so the question is 
+### why alice count 0 and not 1 
+### the answer is becuase we alocate the pointer of alice before append
+### and the append may change the address of the entire slice 
+### so because that we actually increase the old memory and print the new memory for alice 
+
+
 
 # Ch6
 ## Methods
