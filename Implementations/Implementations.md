@@ -3,6 +3,71 @@
 
 <hr/>
 
+## how to take input from the user
+
+### normal case 
+```go
+
+  var(s string ; n int)
+  fmt.Println("Enter a string and a number : ")
+  fmt.Scan(&s, &n)
+//   fmt.Scanln(&s , &n)
+//   fmt.Scanf("%s %d" , s , n)
+  fmr.Printf("You entered : %s and %d\n", s, n)
+// scan and scanln are similar the difference is thean scanln end when you enter newline
+// scan endes when you enter the two variables then space 
+```
+
+### read from buffer
+```go
+
+  reader := bufio.NewReader(os.Stdin)
+  input,_ := reader.ReadString('\n')
+  Println("you enter : " , input)
+// will read every thing until you enter a new line 
+```
+### take file as a input 
+
+```go
+  file, err := os.Open("input.txt")
+    if err != nil { // if the file  not exist will throw error
+        fmt.Println(err)
+        return
+    }
+    defer file.Close()
+
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+        fmt.Println(scanner.Text()) // Print each line
+    }
+
+    if err := scanner.Err(); err != nil {
+        fmt.Println(err)
+    }
+```
+```go
+   content, err := os.ReadFile("input.txt")
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    fmt.Println(string(content)) // Print file content as a string
+
+```
+```go
+	// Open the file with read/write permissions, create it if it doesn't exist
+	file, err := os.OpenFile("input.txt", os.O_RDWR|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Println("Error opening/creating file:", err)
+		return
+	}
+	defer file.Close()
+
+    fmt.Println("File opened or created successfully")
+```
+
+<hr/>
+
 # cards game
 
 ### receiver function

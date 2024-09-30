@@ -1,15 +1,19 @@
 package main
 
 import (
-	"fmt"
+	// "bufio"
+	// . "fmt"
+	// "os"
 )
+
+type w interface{}
 
 
 func main(){
 
-  var s string
 
-  fmt.Printf("s: %v\n", s)
+
+
 
 
 }
