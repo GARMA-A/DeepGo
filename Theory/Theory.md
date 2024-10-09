@@ -1,23 +1,33 @@
 # [Go Back](../README.md)
-# [Go to Implementations](./Implementations/Implementations.md)
-<hr/>
 
+# [Go to Implementations](./Implementations/Implementations.md)
+
+<hr/>
 
 # CH1
 
 # Go philosophy
+
 #### Go has a strong enough type system to avoid most careless mistakes found in dynamic languages.
+
 #### Its type system is simpler compared to other statically typed languages.
+
 #### Go can lead to some "untyped" pockets within its type-safe framework.
+
 #### Go programmers do not use types for safety proofs like in C++ or Haskell.
+
 #### Despite a simpler type system, Go provides safety and performance benefits without much complexity.
+
 #### Go emphasizes modern system design, focusing on data locality.
+
 #### Its data types and libraries work naturally without needing explicit initialization or constructors.
+
 #### Go avoids hidden memory allocations and writes in code.
 
 <hr/>
 
 ## Hello World
+
 ```Go
 package main
 
@@ -30,56 +40,77 @@ func main() {
 ```
 
 #### Go code is organized into packages,
+
 #### which are similar to libraries or modules in other
+
 #### languages. A package consists of one or more .go source files
+
 #### in a single directory that
+
 #### define what the package does. Each source file begins with a
+
 #### package declaration, here `package main`, that states which package the file belongs to,
+
 #### followed by a list of other packages that it imports, and then the declarations
+
 #### of the program that are stored in that file.
+
 <hr/>
 
 # package `main`
 
 #### Package `main` is special. It defines a standalone executable
+
 #### program, not a library. Within `package main`, the
+
 #### function `main` is
+
 #### also special—it’s where execution of the program begins. Whatever `main`
+
 #### does is what the program does. Of course, `main` will normally call upon
+
 #### functions in other packages to do much of the work, such as
+
 #### the function `fmt.Println`.
 
 # import()
 
-#### The import declarations must follow the package declaration. 
+#### The import declarations must follow the package declaration.
+
 #### After that,a program consists of the declarations of functions, variables,
+
 #### constants, and types
+
 #### (introduced by the keywords func, var, const, and type);
 
 <hr/>
 
 # variables
+
 ### you can declare a variable with
+
 ```Go
 s := ""
 var s string
 var s = ""
 var s string = ""
 ```
+
 ### some very usefull format expresions
-|sympol                       | mean                                        |
-|:---------------------------:|:--------------------------------------------|
-| `%d`                        | decimal integer                             |
-| `%x` , `%o` , `%b`          | integer in hexadecimal,cotal,binary         |
-| `%f` , `%g` , `%e`          | floating number 3.14 , 3.1415926 , 3.14e+00 |
-| `%t`                        | boolean                                     |
-| `%c`                        | rune (unicode code point)                   |               
-| `%s`                        | string                                      |
-| `%q`                        | quoted string "abc"                         |
-| `%v`                        | any value in a natural format               |
-| `%T`                        | Type of any value                           |
-| `%p`                        | pointer value (show memory address)
-| `%%`                        | literal percent sign (no operand)
+
+|       sympol       | mean                                        |
+| :----------------: | :------------------------------------------ |
+|        `%d`        | decimal integer                             |
+| `%x` , `%o` , `%b` | integer in hexadecimal,cotal,binary         |
+| `%f` , `%g` , `%e` | floating number 3.14 , 3.1415926 , 3.14e+00 |
+|        `%t`        | boolean                                     |
+|        `%c`        | rune (unicode code point)                   |
+|        `%s`        | string                                      |
+|        `%q`        | quoted string "abc"                         |
+|        `%v`        | any value in a natural format               |
+|        `%T`        | Type of any value                           |
+|        `%p`        | pointer value (show memory address)         |
+|        `%%`        | literal percent sign (no operand)           |
 
 ### When printing numbers using the fmt package, we can control the radix and for mat with the
 
@@ -104,7 +135,7 @@ fmt.Sprintf( string ,...interface{}) (string)
 
 ```
 
-### simple tricks not mentioned  on the table 
+### simple tricks not mentioned on the table
 
 ```go
 // show output on 6 digits if there is no digit put white space
@@ -112,7 +143,7 @@ fmt.Sprintf( string ,...interface{}) (string)
  fmt.Printf("|%6d|\n|%6d|", x , y)
  /*
  |  1234|
- |    12|%   
+ |    12|%
  */
 
  // add zero instead of the white spaces
@@ -120,7 +151,7 @@ fmt.Sprintf( string ,...interface{}) (string)
  fmt.Printf("|%06d|\n|%06d|", x , y)
  /*
  |001234|
- |000012|%  
+ |000012|%
  */
 
 
@@ -129,12 +160,15 @@ fmt.Sprintf( string ,...interface{}) (string)
  fmt.Printf("|%-6d|\n|%-6d|", x , y)
  /*
 |1234  |
-|12    |%                                                                              
+|12    |%
  */
 
 ```
+
 ## more tricks
+
 ### slices
+
 ```go
 s := []int{1,2,3}
 fmt.Printf("%T\n" , s)
@@ -146,7 +180,9 @@ fmt.Printf("%#v\n" ,s)
 []int{1, 2, 3}
 */
 ```
+
 ### Arrays
+
 ```go
 arr := [3]int{1, 2, 3}
 fmt.Printf("%T\n", arr)
@@ -158,7 +194,9 @@ fmt.Printf("%#v\n", arr)
 [3]int{1, 2, 3}
 */
 ```
+
 ### map
+
 ```go
 
 fmt.Printf("%T\n", m)
@@ -173,6 +211,7 @@ map[string]int{"one":1, "three":3, "two":2}
 ```
 
 ### Functions
+
 ```go
 f := func(x int) int {
     return x * x
@@ -196,12 +235,16 @@ fmt.Printf("%d %[1]x %#[1]x %#[1]X\n", x)
 // Output:
 // 3735928559 deadbeef 0xdeadbeef 0XDEADBEEF
 ```
+
 ### Usually a Printf format string containing multiple % verbs
+
 ### would require the same number of extra operands, but the [1] ‘‘adverbs’’ after % tell Printf to
+
 ### use the first operand over and over again. Second, the # adverb for %o or %x or %X tells Printf
+
 ### to emita 0 or 0x or 0X prefix respectively.
 
-```go 
+```go
 ascii := 'a'
 unicode := 'D'
 newline := '\n'
@@ -211,17 +254,21 @@ fmt.Printf("%d %[1]q\n", newline) // "10 '\n'"
 ```
 
 #### Go comes with an extensive standard library of useful packages, and the Go
+
 #### community has created and shared many more.
 
 #### Programming is often more about using existing packages than about
+
 #### writing original code of one’s own.
 
 #### Throughout the book, we will point out a couple of dozen of the most important
+
 #### standard package
 
 # CH2
- 
+
 # Go has 25 keywords they can’t be used as names.
+
 ```go
 break
 case
@@ -251,28 +298,31 @@ var
 ```
 
 ### In addition, there are about three dozen predeclared
+
 ### names like int and true for built-in constants , types, functions
 
-## Constants: 
+## Constants:
+
 ```Go
 true  false  iota  nil
 ```
+
 ## Types:
+
 ```Go
   int  int8  int16  int32  int64 uint
   uint8  uint16  uint32  uint64
-  uintptr float32  float64  complex128  
+  uintptr float32  float64  complex128
  complex64 bool  byte  rune  string  error
 ```
 
+## Functions:
 
-## Functions:  
 ```Go
  make  len  cap  new  append  copy
- close  delete complex  real  imag 
+ close  delete complex  real  imag
  panic  recover
 ```
-
 
 ## Access declared functions and variables in Go
 
@@ -294,23 +344,28 @@ func main11() {
 ```
 
 #### The constant boilingFis a package-level declaration (as is
+
 #### main), whereas the variables fand care
+
 #### local to the function main.
 
 #### The name of each package-level entity is
+
 #### visible not only throughout the source file that contains its
+
 #### declaration, but throughout all the files of the package.
 
-
 #### By contrast, local declarations are visible only within
+
 #### the function in which they are declared and perhaps only within a
+
 #### small part of it.
 
-
 ## pointers in Go
+
 ```Go
 var x, y int
-fmt.Println(&x == &x, &x == &y, &x == nil) 
+fmt.Println(&x == &x, &x == &y, &x == nil)
 // "true false false"
 /************/
 var p = f()
@@ -334,14 +389,16 @@ func incr(p *int) int {
 p := new(int)
 fmt.Printf(*p) // 0
 /*
-The new built-in function allocates memory. The first argument is 
-a type, not a value, and the value returned is a pointer to a 
+The new built-in function allocates memory. The first argument is
+a type, not a value, and the value returned is a pointer to a
 newly allocated zero value of that type.
 */
 
 
 ```
+
 # Types in Go
+
 ```Go
 // Package tempconv performs Celsius and Fahrenheit temperature computations.
 package tempconv
@@ -363,19 +420,21 @@ func CToF(c Celsius) Fahrenheit { return Fahrenheit(c*9/5 + 32) }
 func FToC(f Fahrenheit) Celsius { return Celsius((f - 32) * 5 / 9) }
 ```
 
-
 # Ch3
 
-
-## More on Types 
-
+## More on Types
 
 ### Go provides both signed and unsigned integer arithmetic.
+
 ### There are four distinct sizes of
+
 ### signed integers—8, 16, 32, and 64 bits—represented by the types
+
 ### int8, int16, int32, and int64, and corresponding unsigned
+
 ### versions uint8, uint16, uint32, and uint64
-### the number after the type is the numbers  of bits 
+
+### the number after the type is the numbers of bits
 
 ```Go
 	// Boolean type
@@ -400,15 +459,21 @@ func FToC(f Fahrenheit) Celsius { return Celsius((f - 32) * 5 / 9) }
 ```
 
 ## Important Note on types
+
 ### As an example familiar from other contexts, consider this sequence:
+
 ```go
 var apples int32 = 1
 var oranges int16 = 2
 var compote int = apples + oranges // compile error
 ```
+
 ### At tempting to compile these three declarations produces an error message:
+
 ### invalid operation: apples + oranges (mismatched types int32 and int16)
+
 ### This typ e mismatch can be fixe d in several ways, most direc tly by converting everything to a
+
 ### common type:
 
 ```go
@@ -445,14 +510,18 @@ var compote int = apples + oranges // compile error
 ```
 
 ### A float32 provides approximately six decimal digits of precision, where as a float64
+
 ### prov ides about 15 digits; float64 should be preferred for most purposes because float32
+
 ### computation sacc umulate error rapidly unless one is quite careful
 
 ```go
 var f float32 = 16777216 // 1 << 24
 fmt.Println(f == f+1) // "true"!
 ```
+
 ### how realy the floating numbers work in Go
+
 ```go
 for x := 0; x < 8; x++ {
 fmt.Printf("x = %d eA = %8.3f\n", x, math.Exp(float64(x)))
@@ -468,11 +537,14 @@ x = 6 eA =  403.429
 x = 7 eA = 1096.633
 */
 ```
+
 ### notice that when i say %8.3f i say that you must print the number
+
 ### on at least 8 digits width and with three decimal digits of precision
+
 ### if the number smaller than 8 digits add space at left of it or add '0' at the end
 
-## Strings 
+## Strings
 
 ```Go
        // normal way
@@ -480,7 +552,7 @@ x = 7 eA = 1096.633
        // let go give the type
        carType := "BMW"
        // one line declaration
- 
+
 	   // String type
 	   var str string = "Hello, Go!"
 	   fmt.Println("String:", str)
@@ -493,8 +565,11 @@ x = 7 eA = 1096.633
        car,price := "BMW",20_000_000
 
 ```
+
 ### how go handle the Strings
+
 #### you need to know that strings are just slice of bytes no more so it you try that :
+
 ```go
 
 s := "hello, world"
@@ -511,20 +586,28 @@ s[0] = 'L' // compile error: cannot assign to s[0]
 // strings in go are immutable
 
 ```
+
 #### Immutability means that it is safe for two copies of a string to share the same underlying
+
 #### memory, making it cheap to copy strings of anylength. Similarly, a strings and a substring
+
 #### like s[7:] may safely share the same data, so the substring operation is also cheap. No new
+
 #### memory is allocated in either case. Figure 3.4 illustrates the arrangement of astring and two
+
 #### of its subst rings sharing the same underlying byte array.
 
 <img  src="GoStringMemory.png" width="600px" height="300px"/>
 
 #### there is one more inmportant thing on Strings
-#### if you use  `` ` ``  instead of `` ' `` the /n /t ...etc has no effect
+
+#### if you use `` ` `` instead of `'` the /n /t ...etc has no effect
+
 ```go
 fmt.Println(`hello, \n\tworld`)
 // hello, \n\tworld
 ```
+
 ## convert str -> int || str <- int
 
 ```go
@@ -537,7 +620,6 @@ x, err := strconv.Atoi("123") // x is an int
 y, err := strconv.ParseInt("123", 10, 64) // base 10, up to 64 bits
 
 ```
-
 
 ## Complex,rune,byte
 
@@ -569,45 +651,46 @@ fmt.Println(imag(x*y))           // "10"
 
 ## Go Escape Sequences Table
 
+| Escape Sequence | Character Represented  |
+| --------------- | ---------------------- |
+| `\\`            | Backslash (`\`)        |
+| `\'`            | Single Quote (`'`)     |
+| `\"`            | Double Quote (`"`)     |
+| `\n`            | Newline (`\n`)         |
+| `\r`            | Carriage Return (`\r`) |
+| `\t`            | Tab (`\t`)             |
+| `\v`            | Vertical Tab (`\v`)    |
+| `\f`            | Form Feed (`\f`)       |
+| `\xNN`          | Hexadecimal (`\xNN`)   |
+| `\uNNNN`        | Unicode (`\uNNNN`)     |
+| `\U00NNNNNN`    | Unicode (`\U00NNNNNN`) |
 
-| Escape Sequence | Character Represented       |
-|-----------------|-----------------------------|
-| `\\`            | Backslash (`\`)             |
-| `\'`            | Single Quote (`'`)          |
-| `\"`            | Double Quote (`"`)          |
-| `\n`            | Newline (`\n`)              |
-| `\r`            | Carriage Return (`\r`)      |
-| `\t`            | Tab (`\t`)                  |
-| `\v`            | Vertical Tab (`\v`)         |
-| `\f`            | Form Feed (`\f`)            |
-| `\xNN`          | Hexadecimal (`\xNN`)        |
-| `\uNNNN`        | Unicode (`\uNNNN`)          |
-| `\U00NNNNNN`    | Unicode (`\U00NNNNNN`)      |
+**Note:**
 
-**Note:**  
-- `\xNN` represents a character with hexadecimal code `NN`.  
-- `\uNNNN` represents a Unicode character with hexadecimal code `NNNN`.  
+- `\xNN` represents a character with hexadecimal code `NN`.
+- `\uNNNN` represents a Unicode character with hexadecimal code `NNNN`.
 - `\U00NNNNNN` represents a Unicode character with a longer hexadecimal code `00NNNNNN`.
 
-## constants on go 
+## constants on go
 
 ```Go
 
-const ( 
+const (
 	a = 1
-	b 
-	c 
-	d 
-	e 
-	f =2 
-	g 
+	b
+	c
+	d
+	e
+	f =2
+	g
 )
-fmt.Println(a,b,c,d,e,f) // 1 1 1 1 1 2 2 
+fmt.Println(a,b,c,d,e,f) // 1 1 1 1 1 2 2
 
 ```
 
 ## Go Bitwise
-``` go
+
+```go
 & //bit wise AND
 | //bit wise OR
 ^ //bit wise XOR
@@ -617,8 +700,11 @@ fmt.Println(a,b,c,d,e,f) // 1 1 1 1 1 2 2
 ```
 
 # Ch4
+
 ### Composite Types
+
 ### Arrays
+
 ```go
 var q [3]int = [3]int{1, 2, 3}
 var r [3]int = [3]int{1, 2}
@@ -627,33 +713,40 @@ fmt.Println(r[2]) // "0"
 ```
 
 ### In an array literal, if an ellipsis ‘‘...’’ appears in place of the lengt h, the array lengt h is determined
+
 ### by the number of initializers. The definition of q can be simplified to
 
 ```go
 q := [...]int{1, 2, 3}
 fmt.Printf("%T\n", q) // "[3]int"
 ```
+
 ```go
 q := [3]int{1, 2, 3}
 q = [4]int{1, 2, 3, 4} // compile error: cannot assign [4]int to [3]int
 ```
-### you can define the array as also key value 
+
+### you can define the array as also key value
+
 ```go
 symbol := [...]string{USD: "$", EUR: "9", GBP: "!", RMB: ")"}
 fmt.Println(RMB, symbol[RMB]) // "3 ")"
 r := [...]int{99: -1}
-// defines an array r with 100 elements, all zero 
+// defines an array r with 100 elements, all zero
 // except for the last, which has value −1.
 ```
-## Slice 
-### as the name said the slice is just a pointer , capacity , length
-### point to an array to take a part from it as (len()) 
 
-### declare like that 
+## Slice
+
+### as the name said the slice is just a pointer , capacity , length
+
+### point to an array to take a part from it as (len())
+
+### declare like that
 
 ```go
 
-	
+
 	arr := [5]int{1, 2, 3, 4, 5}
 	slice := arr[1:4] // slice contains elements from index 1 to 3
 	fmt.Println("Slice from array:", slice)
@@ -740,42 +833,49 @@ r := [...]int{99: -1}
 	// After append 2: len=3, cap=3
 	// After append 3: len=4, cap=6
 	// After append 4: len=5, cap=6
-	
+
 
 ```
 
-### so as we said slice is just a pointer to an array 
+### so as we said slice is just a pointer to an array
+
 ### the capacity is the size of the array that the slice point to
+
 ### the length is the size of the slice it self and must be less or equal the capacity
+
 ### you can imagine the slice as struct have pointer and len and cap on it
+
 ```go
 type slice struct{
 	ptr *int
-	cap int 
+	cap int
 	len int
 }
 
 ```
+
 ### the ptr point to the head or first element on that slice maybe first element on the array
-### , last element or in the middle 
+
+### , last element or in the middle
 
 # the difference between array and slice in go
 
-|slice                                   | array                                   |
-|----------------------------------------| ----------------------------------------|
-| variable length                        | fixed length at compile timw            |
-| passed by reference                    | passed by value (copie them)            |
-| Not Comparable                         |  Comparable by `==`                     |
-| cannot be used as map key              | can be used as map key                  |
-| has copy & append helpers              | no functions made specific for it       |
-| Useful as function parameters          |  useful as pesudo constants             |
+| slice                         | array                             |
+| ----------------------------- | --------------------------------- |
+| variable length               | fixed length at compile timw      |
+| passed by reference           | passed by value (copie them)      |
+| Not Comparable                | Comparable by `==`                |
+| cannot be used as map key     | can be used as map key            |
+| has copy & append helpers     | no functions made specific for it |
+| Useful as function parameters | useful as pesudo constants        |
 
 ## map on go
 
 #### In Go, a map is a reference to a hash table, and a map typ e is writt en map[K]V, where K and V
-### are the types of its keys and values. All of the keys in a given map are of the same type, and all
-### of the values are of the same type 
 
+### are the types of its keys and values. All of the keys in a given map are of the same type, and all
+
+### of the values are of the same type
 
 ```go
 
@@ -817,13 +917,17 @@ type slice struct{
 ### struct in Go
 
 ### If all the fields of a struct are comparable, the struct itself is comparable, so two expressions of
+
 ### that type may be compared using == or !=. The == op eration compares the corresponding
+
 ### fields of the two structs in order
 
 ### more on the implementation readme file
 
 # Ch5
+
 ### Functions
+
 #### go model for a function
 
 ```go
@@ -833,26 +937,36 @@ body
 ```
 
 #### The parameter list specifies the names and types of the function’s parameters, which are the
+
 #### local variables whose values or ar guments are sup plied by the caller. The result list specifies
+
 #### the types of the values that the function returns. If the function returns one unnamed result
+
 #### or no results at all, parentheses are optional and usually omitted. Leaving off the result list
+
 #### entirely declares a function that does not return any value and is called only for its effects. In
+
 #### the hypot function
 
 ### Here are four ways to declare a function with two parameters and one result, all of type int.
+
 ### The blank identifier can be used to emp hasize that a parameter is unused.
- ```go
- func add(x int, y int) int { return x + y }
- func sub(x, y int) (z int) { z = x - y; return }
- func first(x int, _ int) int { return x }
- func zero(int, int) int { return 0 }
- fmt.Printf("%T\n", add) // "func(int, int) int"
- fmt.Printf("%T\n", sub) // "func(int, int) int"
- fmt.Printf("%T\n", first) // "func(int, int) int"
- fmt.Printf("%T\n" , zero) // "func(int, int) int" 
+
+```go
+func add(x int, y int) int { return x + y }
+func sub(x, y int) (z int) { z = x - y; return }
+func first(x int, _ int) int { return x }
+func zero(int, int) int { return 0 }
+fmt.Printf("%T\n", add) // "func(int, int) int"
+fmt.Printf("%T\n", sub) // "func(int, int) int"
+fmt.Printf("%T\n", first) // "func(int, int) int"
+fmt.Printf("%T\n" , zero) // "func(int, int) int"
 ```
+
 ### Func tions are first-class values in Go: like other values, function values have typ es, and the y
+
 ### may be assig ned to var iables or passed to or retur ned fro m func tions. A func tion value may
+
 ### be cal le d li ke any other function. For example:
 
 ```go
@@ -879,8 +993,11 @@ f(3)
 // but they are not comparable, so they may not be compared against each other orused as keys
 // in a map.
 ```
+
 ## Anonymous Functions
+
 ### A function literal is written like a function
+
 ### declaration, but without a name following the func keyword
 
 ```go
@@ -909,7 +1026,8 @@ func main() {
 	fmt.Println(f()) // "16"
 }
 ```
-## Variadic Functions 
+
+## Variadic Functions
 
 ### A variadic fun cti on is one that can be cal le d with var ying numbers of arguments.
 
@@ -925,20 +1043,27 @@ func sum(vals ...int) int {
 
 func main(){
 	var sm = sum(1,2,3,4,5)
-	fmt.Println(sm) // 15 
+	fmt.Println(sm) // 15
 }
 
 ```
-### how it works under the hood 
+
+### how it works under the hood
+
 ### Implicitly, the caller allocates an array, copies the arguments into it, and passes a slice of the
+
 ### entire array to the function
+
 ## like that 👇
+
 ```go
 values := []int{1, 2, 3, 4}
 fmt.Println(sum(values...)) // "10"
 
 ```
+
 ### Although the ...int parameter behaves like a slice within the function body, the type of a
+
 ### variadic function is distinct from the type of a function with an ordinary slice parameter.
 
 ```go
@@ -949,6 +1074,7 @@ fmt.Printf("%T\n", f) // "func(...int)"
 fmt.Printf("%T\n", g) // "func([]int)"
 
 ```
+
 ## Some Tricks
 
 ### There’s no such thing as "pass by reference" in Go.
@@ -958,10 +1084,13 @@ fmt.Printf("%T\n", g) // "func([]int)"
 - same to maps ...etc
 
 ### Watch this video to understand more:
+
 [Watch Here](https://youtu.be/wj0hUjRHkPs?list=PLoILbKo9rG3skRCj37Kn5Zj803hhiuRK6)
 
 ## more tricks on functions
+
 ### tell me what is the output of this programm
+
 ```go
 func do(m1 map[string]int){
 	m1["three"] = 0
@@ -977,13 +1106,16 @@ func main(){
 }
 
 ```
+
 ### the output
+
 ```go
 /*
 the m1 : map[four:4]
 m map[one:1 seven:7 three:0]
 */
 ```
+
 ### this was actually the easy part now the real challenge
 
 ### what is the output of this program
@@ -1005,6 +1137,7 @@ func main(){
 }
 
 ```
+
 ### the output
 
 ```go
@@ -1014,8 +1147,11 @@ the m1 : &map[100:4]
 the m after do() :  map[100:4]
 */
 ```
-## defer keyword 
-### defer all it does is instead of excute the statement come after it right away 
+
+## defer keyword
+
+### defer all it does is instead of excute the statement come after it right away
+
 ### it will wait until the function ends and excute it
 
 ```go
@@ -1028,11 +1164,12 @@ func main(){
 }
 
 
-// output 11 , 10 
+// output 11 , 10
 // the last thing that excute is the defer
 ```
 
 ### if you have more than one defer on the function it will store all of them on stack
+
 ### one by one and excute what is the top on the stack until the end of $
 
 ```go
@@ -1051,8 +1188,10 @@ deferred 10
 */
 
 ```
-### defer only work on function calls so if you want to implement it on variable 
-### you can do that 
+
+### defer only work on function calls so if you want to implement it on variable
+
+### you can do that
 
 ```go
 
@@ -1061,21 +1200,24 @@ func doIt() (a int){
 		a = 2
 	}()
 	a = 1
-	return 
+	return
 }
-// will return 2 
+// will return 2
 
 
 ```
-## example to new panic and  new recover with defer
-### panic it like throw error and recover() take that error message 
+
+## example to new panic and new recover with defer
+
+### panic it like throw error and recover() take that error message
+
 ```go
 func main(){
 	fmt.Println("first line of main")
-	defer func(){ 
+	defer func(){
 		if r:=recover(); r!=nil{
 			fmt.Println("Recovered from ", r)
-			fmt.Println("here on recover  do some clean up or continue the program on other functions") 
+			fmt.Println("here on recover  do some clean up or continue the program on other functions")
 		}
 	}()
 	var input int
@@ -1095,9 +1237,11 @@ func main(){
 ```
 
 ### we know that defer run after the main() function ends or after panic()
+
 ### on that defer function if there is panic happen we can handel it
 
 ## Closures
+
 ```go
 
 func fibo() func() int {
@@ -1119,8 +1263,11 @@ func main(){
 // output
 // 1 2 3 5 8
 ```
+
 ### variables `a` and `b` on fibo will keep exist until the main function end
-### we store a and b on the heap for long life time  
+
+### we store a and b on the heap for long life time
+
 ```go
 func do(d func()){
 	d()
@@ -1134,7 +1281,7 @@ func main(){
 		do(v)
 	}
 }
-// output 
+// output
 // 0 @ 0xc0000141a8
 // 1 @ 0xc0000141a8
 // 2 @ 0xc0000141a8
@@ -1143,8 +1290,11 @@ func main(){
 ```
 
 ### so why all of `i`'s come with the same memory address ?
-> because they are all the same i but update the value on each iteration 
-### look at this version of the same code 
+
+> because they are all the same i but update the value on each iteration
+
+### look at this version of the same code
+
 ```go
 func main(){
 	s:=make([]func() , 4)
@@ -1153,7 +1303,7 @@ func main(){
 			fmt.PrintF("%d @ %p \n" , i , &i)
 		}
 	}
-	
+
 	for i:= 0 ; i <4 ; i++ {
 		s[i]()
 	}
@@ -1165,7 +1315,9 @@ func main(){
 // 4 @ 0xc00009e0f8
 
 ```
-### if i do simple change  `i:=i` 
+
+### if i do simple change `i:=i`
+
 ```go
 
 func main(){
@@ -1176,7 +1328,7 @@ func main(){
 			fmt.PrintF("%d @ %p \n" , i , &i)
 		}
 	}
-	
+
 	for i:= 0 ; i <4 ; i++ {
 		s[i]()
 	}
@@ -1187,10 +1339,13 @@ func main(){
 // 2 @ 0xc0000141b8
 // 3 @ 0xc0000141c0
 ```
+
 ### now we are take new copy and address new memory on each iteration
+
 ### now each clusure has it's own value of i and place on memory for i
 
 ## new Test 🆕
+
 ```go
 type user struct{name string ; count int}
 
@@ -1211,22 +1366,387 @@ func main(){
 }
 
 ```
-### the output is `[{alice 0} {bob 0} {amy 1}]` so the question is 
-### why alice count 0 and not 1 
+
+### the output is `[{alice 0} {bob 0} {amy 1}]` so the question is
+
+### why alice count 0 and not 1
+
 ### the answer is becuase we alocate the pointer of alice before append
-### and the append may change the address of the entire slice 
-### so because that we actually increase the old memory and print the new memory for alice 
 
+### and the append may change the address of the entire slice
 
+### so because that we actually increase the old memory and print the new memory for alice
 
 # Ch6
+
 ## Methods
 
 ### there is no universally accepted definition of object-oriented programming, for our
+
 ### purposes, an object is simply a value or variable that has methods, and a method is a function
+
 ### associated with a particular type. An object-oriented program is one that uses methods to
+
 ### express the properties and operations of each data structure so that clients need not access the
+
 ### object’s representation directly.
 
+# Ch8
+
+## Goroutine
+
+### make your code run asynchronous with the word `go`
+
+```go
 
 
+func boring(str string) {
+	for i := 0; i < 10; i++ {
+
+		fmt.Println(str, i)
+		time.Sleep(time.Second)
+	}
+}
+
+func main() {
+
+	go boring("boring")
+	println("This is the first print after the boring function")
+	time.Sleep(time.Second)
+	println("This is the Second print after the boring function")
+
+}
+
+
+```
+
+### try to comunicate between two subroutine with channels
+
+```go
+
+func boring(str string  , ch chan string) {
+	for i := 0; i < 10; i++ {
+
+		ch<-fmt.Sprintln(str, i)
+		time.Sleep(time.Second)
+	}
+}
+
+func main() {
+	ch := make(chan string)
+	go boring("Hello from boring function" , ch)
+
+	for i :=  0 ; i < 5 ; i++ {
+		println(<-ch)
+	}
+
+}
+
+```
+
+### we always wait until the reciving channel an the sending chanel be ready before the communication happen
+
+### `Do not communication by share memory , share memory by communicate
+
+
+
+
+### return receive only channel from a function
+
+```go
+
+func boring(msg string) <-chan string {
+
+	ch := make(chan string)
+	go func() {
+		for i := 0; i < 10; i++ {
+
+			ch <- fmt.Sprintf("%s %d" , msg, i)
+			time.Sleep(time.Second)
+		}
+	}()
+	return ch
+}
+
+func main() {
+	c := boring("boring!")
+	for i := 0 ; i<5 ; i++ {
+		fmt.Printf("you say you are %q \n" , <-c)
+	}
+	println("I.m leaving you are very boring")
+
+}
+
+
+
+```
+```go
+func main() {
+	joe := boring("Joe")
+	ann := boring("ann")
+	for i := 0 ; i<5 ; i++ {
+		fmt.Printf("you say you are %q \n" , <-joe)
+		fmt.Printf("you say you are %q \n" , <-ann)
+	}
+	println("I.m leaving you are very both boring")
+
+}
+```
+### there is simple problem here is that `ann` routine must what for `joe` routine
+### to print even if it was faster than `joe` because fmt.Print() is block code so
+### to solve that we can use another fanction call it `fanIn()`
+
+```go
+func fanIn(input1, input2 <-chan string ) <-chan string{
+	c := make(chan string)
+	go func() {for {c <- <-input1}}()
+	go func() {for {c <- <-input2}}()
+	return c
+}
+
+func boring(msg string) <-chan string {
+
+	ch := make(chan string)
+	go func() {
+		for i := 0; i < 10; i++ {
+
+			ch <- fmt.Sprintf("%s %d" , msg, i)
+			time.Sleep(time.Second)
+		}
+	}()
+	return ch
+}
+
+func main() {
+
+	c:= fanIn(boring("joe") , boring("Ann"))
+
+	for i := 0 ; i<10 ; i++ {
+		fmt.Println(<-c)
+
+	}
+	println("I.m leaving you are very both boring")
+
+}
+
+```
+### a better way to write `fanIn` function is to use one go routine with `select`
+### key word that it is will select the chanel that is ready and if both are 
+### ready at the same time it will pick one random and then the other one 
+
+```go
+func fanIn(input1, input2 <-chan string ) <-chan string{
+	c := make(chan string)
+	go func(){
+        
+	 for {
+		select {
+			case s := <-input1: c<-s
+			case s := <-input2: c<-s
+		}
+	 }
+
+	}()
+
+	return c
+}
+
+```
+### you can have a `default` value also 
+```go
+
+func fanIn(input1, input2 <-chan string ) <-chan string{
+	c := make(chan string)
+
+	go func(){
+        
+	 for {
+		select {
+			case s := <-input1: c<-s
+			case s := <-input2: c<-s
+			default : fmt.Println("no one was ready to communicate")
+		}
+	 }
+
+	}()
+
+	return c
+}
+
+
+```
+
+### another good example 
+```go
+func boring(msg string) <-chan string {
+
+	ch := make(chan string)
+	go func() {
+		for i := 0; i < 10; i++ {
+
+			ch <- fmt.Sprintf("%s %d" , msg, i)
+			time.Sleep(time.Second)
+		}
+	}()
+	return ch
+}
+
+func main() {
+
+	c := boring("joe")
+	timeout := time.After(4 * time.Second)
+	for {
+		select {
+		case s := <-c:
+			fmt.Println(s)
+		case <-timeout:
+			fmt.Println("Bro you are taking to much time to answer !!")
+			return 
+		}
+	}
+}
+
+```
+
+```go
+f() // call f(); wait for it to return
+go f() // create a new goroutine that calls f(); don't wait
+```
+
+## the magic of `\r`
+
+### over write the last print
+
+```go
+
+		fmt.Printf("\rCounting: %d", 0)
+		time.Sleep(500 * time.Millisecond)
+		fmt.Printf("\rCounting: %d", 1)
+		time.Sleep(500 * time.Millisecond)
+		fmt.Printf("\rCounting: %d", 2)
+		time.Sleep(500 * time.Millisecond)
+		fmt.Printf("\rCounting: %d", 3)
+		time.Sleep(500 * time.Millisecond)
+		fmt.Printf("\rCounting: %d", 4)
+		time.Sleep(500 * time.Millisecond)
+		fmt.Printf("\rCounting: %d", 5)
+		time.Sleep(500 * time.Millisecond)
+		fmt.Printf("\rCounting: %d", 6)
+```
+## Go routine #2 
+
+```go
+
+func main() {
+	go spinner(100 * time.Millisecond)
+	const n = 45
+	fibN := fib(n) // slow
+	fmt.Printf("\rFibonacci(%d) = %d\n", n, fibN)
+}
+func spinner(delay time.Duration) {
+	for {
+		for _, r := range `-\|/` {
+			fmt.Printf("\r%c", r)
+			time.Sleep(delay)
+		}
+	}
+}
+func fib(x int) int {
+	if x < 2 {
+		return x
+	}
+	return fib(x-1) + fib(x-2)
+}
+```
+
+### The main function then returns. When this happens, all goroutines are abruptly terminated
+
+### and the program exits
+
+## channels
+
+### A channel is a communication mechanism that lets one goroutine send values
+
+### to another goroutine
+
+### To create a channel, we use the built-in make function:
+
+```go
+ch := make(chan int) // ch has type 'chan int'
+
+```
+
+### A channel has two princip aloperat ions, send and receive, collectively known as
+
+### communications. A send statement transmits a value from one goroutine, through the channel,
+
+### to another goroutine execut ing a corresponding receive expression. Both operat ionsare
+
+### writt en using the `<- op erator`. In a send statement, the <- separates the channel and value operands.
+
+### In a receive expression, <- precedes the channel operand. A receive expression whose
+
+### result is not used is a valid statement.
+
+```go
+ch <- x // a send statement
+x = <-ch // a receive expression in an assignment statement
+<-ch // a receive statement; result is discarded
+```
+
+### Channel s supp ort a third operat ion, cl ose, which sets a flag indic ating that no more values will
+
+### ever be sent on this channel;
+
+### To close a channel, we call the built-in close function:
+
+```go
+close(ch)
+```
+
+### who to wait until the all routines finish before exit the main
+
+```go
+func main() {
+	conn, err := net.Dial("tcp", "localhost:8000")
+	if err != nil {
+		log.Fatal(err)
+	}
+	done := make(chan struct{})
+	go func() {
+		io.Copy(os.Stdout, conn) // NOTE: ignoring errors
+		log.Println("done")
+		done <- struct{}{} // signal the main goroutine
+	}()
+	mustCopy(conn, os.Stdin)
+	conn.Close()
+	<-done // wait for background goroutine to finish
+}
+```
+### print 0 1 4 16 25 36 49 .....so on
+
+```go
+
+func main() {
+	naturals := make(chan int)
+	squares := make(chan int)
+	// Counter
+	go func() {
+		for x := 0; x<=10 ; x++ {
+			naturals <- x
+		}
+	}()
+	// Squarer
+	go func() {
+		for {
+			x := <-naturals
+			squares <- x * x
+		}
+	}()
+	// Printer (in main goroutine)
+	for {
+		fmt.Println(<-squares)
+	}
+}
+
+```
