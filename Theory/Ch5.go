@@ -2,51 +2,29 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
-func fanIn(input1, input2 <-chan string ) <-chan string{
-	c := make(chan string)
-
-	go func(){
-        
-	 for {
-		select {
-			case s := <-input1: c<-s
-			case s := <-input2: c<-s
-			default : fmt.Println("no one was ready to communicate")
-		}
-	 }
-
-	}()
-
-	return c
-}
-
-func boring(msg string) <-chan string {
-
-	ch := make(chan string)
-	go func() {
-		for i := 0; i < 10; i++ {
-
-			ch <- fmt.Sprintf("%s %d" , msg, i)
-			time.Sleep(time.Second)
-		}
-	}()
-	return ch
-}
-
-func main() {
-
-	c := boring("joe")
-	timeout := time.After(4 * time.Second)
-	for {
-		select {
-		case s := <-c:
-			fmt.Println(s)
-		case <-timeout:
-			fmt.Println("Bro you are taking to much time to answer !!")
-			return 
-		}
+func counter(out chan<- int) {
+	for x := 0; x < 100; x++ {
+		out <- x
 	}
+	close(out)
+}
+func squarer(out chan<- int, in <-chan int) {
+	for v := range in {
+		out <- v * v
+	}
+	close(out)
+}
+func printer(in <-chan int) {
+	for v := range in {
+		fmt.Println(v)
+	}
+}
+func main() {
+	naturals := make(chan int)
+	squares := make(chan int)
+	go counter(naturals)
+	go squarer(squares, naturals)
+	printer(squares)
 }

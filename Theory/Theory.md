@@ -1398,8 +1398,6 @@ func main(){
 ### make your code run asynchronous with the word `go`
 
 ```go
-
-
 func boring(str string) {
 	for i := 0; i < 10; i++ {
 
@@ -1416,11 +1414,50 @@ func main() {
 	println("This is the Second print after the boring function")
 
 }
+/*
+output :
 
-
+This is the first print after the boring function
+boring 0
+This is the Second print after the boring function
+boring 1
+*/
+```
+```go
+f() // call f(); wait for it to return
+go f() // create a new goroutine that calls f(); don't wait
 ```
 
 ### try to comunicate between two subroutine with channels
+
+```go
+func main(){
+
+	mychannel := make(chan string)
+
+	 go func(){
+		mychannel <- "hello"
+		mychannel <- "hi"
+		mychannel <- "welcome"
+	}()
+
+	fmt.println(<-mychannel)
+	fmt.println(<-mychannel)
+	fmt.println(<-mychannel)
+
+}
+/*
+output :
+
+hello
+hi
+welcome
+
+*/
+```
+### you can think of a channel as queue of values you can store on 
+### and you can send and recive from all subroutines
+
 
 ```go
 
@@ -1441,15 +1478,35 @@ func main() {
 	}
 
 }
+/*
+output :
 
+Hello from boring function 0
+
+Hello from boring function 1
+
+Hello from boring function 2
+
+Hello from boring function 3
+
+Hello from boring function 4
+
+*/
 ```
+### if you declare channel like that `ch<-` this send only channel 
+### that can send to the channel
+###  `<-ch` this is recive only  channel that can take from it value only
+
+| Type            | Declaration  | Can Send Data (`ch <- value`) | Can Receive Data (`value := <-ch`) |
+|-----------------|--------------|-------------------------------|------------------------------------|
+| **Normal**      | `chan T`     | Yes                           | Yes                                |
+| **Send-Only**   | `chan<- T`   | Yes                           | No                                 |
+| **Receive-Only**| `<-chan T`   | No                            | Yes                                |
+
+
 
 ### we always wait until the reciving channel an the sending chanel be ready before the communication happen
-
-### `Do not communication by share memory , share memory by communicate
-
-
-
+### `Do not communication by share memory , share memory by communicate`
 
 ### return receive only channel from a function
 
@@ -1477,10 +1534,31 @@ func main() {
 
 }
 
+/*
+output:
 
-
+you say you are "boring! 0"
+you say you are "boring! 1"
+you say you are "boring! 2"
+you say you are "boring! 3"
+you say you are "boring! 4"
+I.m leaving you are very boring
+*/
 ```
 ```go
+
+func boring(msg string) <-chan string {
+
+	ch := make(chan string)
+	go func() {
+		for i := 0; i < 10; i++ {
+
+			ch <- fmt.Sprintf("%s %d" , msg, i)
+			time.Sleep(time.Second)
+		}
+	}()
+	return ch
+}
 func main() {
 	joe := boring("Joe")
 	ann := boring("ann")
@@ -1491,11 +1569,26 @@ func main() {
 	println("I.m leaving you are very both boring")
 
 }
-```
-### there is simple problem here is that `ann` routine must what for `joe` routine
-### to print even if it was faster than `joe` because fmt.Print() is block code so
-### to solve that we can use another fanction call it `fanIn()`
+/*
+output:
 
+you say you are "Joe 0"
+you say you are "ann 0"
+you say you are "Joe 1"
+you say you are "ann 1"
+you say you are "Joe 2"
+you say you are "ann 2"
+you say you are "Joe 3"
+you say you are "ann 3"
+you say you are "Joe 4"
+you say you are "ann 4"
+I.m leaving you are very both boring
+
+*/
+```
+### there is simple problem here is that `ann` routine must wait for `joe` routine
+### becuse when you read from a channel you have to wait to be avalue there 
+### and when you send a value to a channel it's block untill the funtion recive that value
 ```go
 func fanIn(input1, input2 <-chan string ) <-chan string{
 	c := make(chan string)
@@ -1528,30 +1621,54 @@ func main() {
 	println("I.m leaving you are very both boring")
 
 }
-
+/*
+output:
+joe 0
+Ann 0
+joe 1
+Ann 1
+Ann 2
+joe 2
+Ann 3
+joe 3
+Ann 4
+joe 4
+I.m leaving you are very both boring
+*/
 ```
 ### a better way to write `fanIn` function is to use one go routine with `select`
-### key word that it is will select the chanel that is ready and if both are 
-### ready at the same time it will pick one random and then the other one 
+### key word that will select the channel that is ready and if both are 
+### ready at the same time it will pick one randomly and then the other one 
 
 ```go
 func fanIn(input1, input2 <-chan string ) <-chan string{
 	c := make(chan string)
 	go func(){
-        
 	 for {
 		select {
 			case s := <-input1: c<-s
 			case s := <-input2: c<-s
 		}
 	 }
-
 	}()
 
 	return c
 }
 
 ```
+### select statement provides another way to handle multiple channels it's like 
+### a switch, but each case is a communication 
+1. All channels are evaluated 
+2. Selection blocks untill one communication can process , wich then does 
+3. if multiple can proceed , select chooses pesudo-randomly
+4. A `default` clause , if present , exexutes immediately if no channels is ready
+
+## Concurrency is not parallelism
+### Concurrency is a way to structure your programm to make it easy to understand 
+### parallelism is just write code to run sync , Parallelism is about doing lots of things at once.
+
+
+
 ### you can have a `default` value also 
 ```go
 
@@ -1569,13 +1686,11 @@ func fanIn(input1, input2 <-chan string ) <-chan string{
 	 }
 
 	}()
-
 	return c
 }
 
 
 ```
-
 ### another good example 
 ```go
 func boring(msg string) <-chan string {
@@ -1584,33 +1699,163 @@ func boring(msg string) <-chan string {
 	go func() {
 		for i := 0; i < 10; i++ {
 
-			ch <- fmt.Sprintf("%s %d" , msg, i)
-			time.Sleep(time.Second)
+			ch <- fmt.sprintf("%s %d" , msg, i)
+			time.sleep(time.second)
 		}
 	}()
 	return ch
 }
+			
 
 func main() {
 
 	c := boring("joe")
-	timeout := time.After(4 * time.Second)
+	timeout := time.after(4 * time.second)
 	for {
 		select {
 		case s := <-c:
-			fmt.Println(s)
+			fmt.println(s)
 		case <-timeout:
-			fmt.Println("Bro you are taking to much time to answer !!")
+			fmt.println("bro you are taking to much time to answer !!")
 			return 
 		}
 	}
 }
+/*
+output :
+joe 0
+joe 1
+joe 2
+joe 3
+bro you are taking to much time to answer !!
 
+*/
 ```
 
+## another good example 
 ```go
-f() // call f(); wait for it to return
-go f() // create a new goroutine that calls f(); don't wait
+type Ball struct{ hits int }
+
+func main(){
+
+	table := make(chan *Ball)
+	go player("ping" , table)
+	go player("Pong" , table)
+
+	table <- new(Ball) // game on ; toss the ball 
+	time.Sleep(10* time.Millisecond)
+	<-table // game over ; grap the ball
+
+
+}
+
+
+func player(msg string , table chan *Ball){
+	for {
+		ball := <-table
+		ball.hits++
+		fmt.Println(msg , ball.hits)
+		time.Sleep(100 * time.Microsecond)
+		table <- ball
+	}
+}
+/* 
+output : 
+Pong 1
+ping 2
+Pong 3
+ping 4
+Pong 5
+ping 6
+Pong 7
+ping 8
+Pong 9
+ping 10ong 1
+ping 2
+Pong 3
+ping 4
+Pong 5
+ping 6
+Pong 7
+ping 8
+Pong 9
+ping 10
+/*
+```
+
+### the buffer channells
+
+```go
+func main(){
+    ch := make(chan string , 2) // Create a buffered channel with capacity of 2
+    ch<-"hello"   // No blocking, stored in the buffer
+    ch<-"welcome" // No blocking, stored in the buffer (buffer is now full)
+    
+    go fn(ch)     // Start a new goroutine to receive data from the channel
+    
+    ch<-"ok"  // Blocks here because the buffer is full. It waits until a receiver takes a value from the channel.
+    
+    fmt.Println("This line will take 5 sec to run")
+}
+
+func fn(ch chan string){
+    time.Sleep(5*time.Second)
+    var x = <-ch  // This takes the first value ("hello") from the channel after 5 seconds, freeing up space in the buffer.
+    fmt.Println(x) // Prints "hello"
+}
+/*
+here we notice something the prev examples where we do not write a capacity
+inside make() function when create new channel will cause to make unbuffer channel
+this unbuffer channel will block the main func or whatever the subroutine is
+until the receiver subroutine take the value var "x = <-ch" but here with 
+buffer channels that is has capacity on it will not block the subroutine
+whenever wesend data throw it but instead store the data on the buffer 
+until we recive it on another subroutine but a very important thing also
+if the buffer subroutine is already full of data it will return to block the
+subroutine that is send it until we recive it "x=<-ch" 
+
+*/
+```
+
+ 
+## Unbuffered Channels:
+
+### When you create an unbuffered channel (i.e., without specifying a capacity), the channel will block the sending goroutine (or function) until a receiving goroutine is ready to receive the data.
+### Similarly, a receiving goroutine will block if no data is available to receive.
+## Buffered Channels:
+### A buffered channel, on the other hand, can hold a specified number of values without requiring immediate reception.
+### Sending to a buffered channel will not block the sender until the buffer is full. Once the buffer is full, sending more data will block until space becomes available (i.e., until another goroutine receives data from the channel).
+#### iteration over a channel queue
+```go
+
+func main(){
+	ch := make(chan string , 2)
+	ch<-"hello"
+	ch<-"welcome"
+	go player(ch)
+	ch<-"ok"
+       fmt.Println("This line will take 5 sec to run")
+	close(ch)
+	for s := range ch {
+		fmt.Println(s)
+		// welcome
+		// ok
+	}
+}
+
+
+func player(ch chan string){
+          time.Sleep(5*time.Second)
+	   var x = <-ch
+         fmt.Println(x) // hello
+
+}
+/*
+if you do not use "close(ch)" the programm will still open and never
+finish
+*/
+
+
 ```
 
 ## the magic of `\r`
@@ -1618,7 +1863,6 @@ go f() // create a new goroutine that calls f(); don't wait
 ### over write the last print
 
 ```go
-
 		fmt.Printf("\rCounting: %d", 0)
 		time.Sleep(500 * time.Millisecond)
 		fmt.Printf("\rCounting: %d", 1)
@@ -1694,7 +1938,7 @@ x = <-ch // a receive expression in an assignment statement
 <-ch // a receive statement; result is discarded
 ```
 
-### Channel s supp ort a third operat ion, cl ose, which sets a flag indic ating that no more values will
+### Channel s supp ort a third operat ion, close, which sets a flag indicating that no more values will
 
 ### ever be sent on this channel;
 
@@ -1723,6 +1967,7 @@ func main() {
 	<-done // wait for background goroutine to finish
 }
 ```
+### pipeline design pattern 
 ### print 0 1 4 16 25 36 49 .....so on
 
 ```go
@@ -1746,6 +1991,54 @@ func main() {
 	// Printer (in main goroutine)
 	for {
 		fmt.Println(<-squares)
+	}
+}
+/*
+the most important thing to notice here is to remember that "naturals<-x" is block
+statement because this channel is unbuffer channel so it will stop the subroutine
+untill the second chanel recive it "x:=<-naturals" then continue and so on with 
+"squares <-x*x" block until recive on fmt.Println(<-squares)" 
+*/
+```
+
+### Nothe that if the channel closed and recive or send data will panic
+### so good technic to check first if it was closed
+
+```go
+	go func() {
+		for {
+			x, ok := <-naturals
+			if !ok {
+				break // channel was closed and drained
+			}
+			squares <- x * x
+		}
+		close(squares)
+	}()
+```
+
+### another very good technic is to just loop throw it
+```go
+func main() {
+	naturals := make(chan int)
+	squares := make(chan int)
+	// Counter
+	go func() {
+		for x := 0; x < 100; x++ {
+			naturals <- x
+		}
+		close(naturals)
+	}()
+	// Squarer
+	go func() {
+		for x := range naturals {
+			squares <- x * x
+		}
+		close(squares)
+	}()
+	// Printer (in main goroutine)
+	for x := range squares {
+		fmt.Println(x)
 	}
 }
 
