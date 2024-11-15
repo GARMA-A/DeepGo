@@ -1,4 +1,6 @@
+
 # [Go Back](../README.md)
+
 
 # [Go to Implementations](./Implementations/Implementations.md)
 
@@ -1377,6 +1379,58 @@ func main(){
 
 ### so because that we actually increase the old memory and print the new memory for alice
 
+## where things store on the stack and store on the heap 
+### if we pass down address to func mean that give a function call by refernce 
+### the function call variable will be on the stack 
+### if we pass up refernce like return ptr that is an address to local var on the func 
+### the address will store on the heap 
+
+## the general role is 
+### if the compiler cannot prove that the variable is not referenced after the function return
+### then the variable will alocate on the garbage collector heap 
+### very important thing is that  you can ask the compiler where you are will but my variables
+### the command to ask the compiler  ` go build -gcflags  "-m=2"`
+
+## but there is another things to know
+### if the variable on the function is very very big (not fit on the small stack)it go to heap
+### when the compiler do not not the size of the variable on the compile time 
+### (slices the size will determine on run time depent on the user  go to heap)
+### ant func literal variables go to heap (func without name)and it's closure capture variables 
+### also the return of the maps , slices  , channels , strings all go to heap 
+
+
+## i will give you some programms do the same thing but one store on the stake(fast) and one on the heap(slower)
+
+
+### HEAP ALLOCATION TO `b`
+```go 
+func main() {
+	b := read()
+	// then you can use b
+}
+
+func read() []byte {
+	//return the new slice 
+	b:=make([]byte ,32)
+	return b
+}
+
+```
+### STACK ALLOCATION TO `b`
+```go
+
+func main() {
+	b := read()
+	// then you can use b
+}
+
+func read([]byte){
+	//write into the slice because it pass by refernce
+}
+
+```
+## remember sharing down stay on stack sharing up stay on heap
+
 # Ch6
 
 ## Methods
@@ -1476,7 +1530,6 @@ func main() {
 	for i :=  0 ; i < 5 ; i++ {
 		println(<-ch)
 	}
-
 }
 /*
 output :
@@ -1813,14 +1866,14 @@ whenever wesend data throw it but instead store the data on the buffer
 until we recive it on another subroutine but a very important thing also
 if the buffer subroutine is already full of data it will return to block the
 subroutine that is send it until we recive it "x=<-ch" 
-
 */
 ```
 
  
 ## Unbuffered Channels:
 
-### When you create an unbuffered channel (i.e., without specifying a capacity), the channel will block the sending goroutine (or function) until a receiving goroutine is ready to receive the data.
+### When you create an unbuffered channel (i.e., without specifying a capacity), the channel will block the sending goroutine 
+### (or function) until a receiving goroutine is ready to receive the data.
 ### Similarly, a receiving goroutine will block if no data is available to receive.
 ## Buffered Channels:
 ### A buffered channel, on the other hand, can hold a specified number of values without requiring immediate reception.
