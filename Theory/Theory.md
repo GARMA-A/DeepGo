@@ -1445,6 +1445,80 @@ func read([]byte){
 
 ### object’s representation directly.
 
+# ch7
+
+## Type assertion 
+### Syntactically, it looks like x.(T)
+### where x is an expression of an interface type and T is a type
+
+```go
+ var w io.Writer
+ w = os.Stdout
+ f := w.(*os.File) // success: f == os.Stdout
+ c := w.(*bytes.Buffer) // panic: interface holds *os.File, not *bytes.Buffer
+```
+
+## x & T both interfaces
+### type assertion to an interface x.(T) T:interface x:interface
+### will check if the x dynamic type is the type of the interface T
+### how we do that The type assertion checks if the dynamic type of x 
+### satisfies the method set of T
+### if this success the value and type of the interface x stay 
+### the  same but we now can access the methods on T directly from x
+
+```go
+func sqlQuote(x interface{}) string {
+	if x == nil {
+		return "NULL"
+	} else if _, ok := x.(int); ok {
+		return fmt.Sprintf("%d", x)
+	} else if _, ok := x.(uint); ok {
+		return fmt.Sprintf("%d", x)
+	} else if b, ok := x.(bool); ok {
+		if b {
+			return "TRUE"
+		}
+		return "FALSE"
+	} else if s, ok := x.(string); ok {
+		return sqlQuoteString(s) // (not shown)
+	} else {
+		panic(fmt.Sprintf("unexpected type %T: %v", x, x))
+	}
+}
+
+// another better way to do the same thing is 
+
+// 
+switch x.(type) {
+  case nil: // ...
+  case int, uint: // ...
+  case bool: // ...
+  case string: // ...
+  default: // ...
+}
+
+// after assertion create new var with the same name
+func sqlQuote(x interface{}) string {
+	switch x := x.(type) {
+	case nil: // is the type = nil
+		return "NULL"
+	case int, uint:
+		return fmt.Sprintf("%d", x) // x has type interface{} here.
+	case bool:
+		if x {
+			return "TRUE"
+		}
+		return "FALSE"
+	case string:
+		return sqlQuoteString(x) // (not shown)
+	default:
+		panic(fmt.Sprintf("unexpected type %T: %v", x, x))
+	}
+}
+// note that the new x on the switch statement will not conflict with the old x 
+// because of the block scope 
+```
+
 # Ch8
 
 ## Goroutine
@@ -1563,6 +1637,7 @@ Hello from boring function 4
 
 ### return receive only channel from a function
 
+### the generator is a function that return channel
 ```go
 
 func boring(msg string) <-chan string {
@@ -2096,3 +2171,207 @@ func main() {
 }
 
 ```
+
+## The four bad rules of go channels 
+
+### send to nil channel block forever 
+### recive from a nil channel block forever
+### send to close channel panic 
+### recive from the close channel return the zero value 
+
+
+
+# ch9
+
+### A race condition is a situation in which the program does not give the correct result for some
+### interleavings of the operations of multiple goroutines
+
+```go
+var heapAllocation int
+var wg sync.WaitGroup
+var mylock sync.Mutex
+
+func increase(num *int) {
+
+	mylock.Lock()
+	*num++
+	mylock.Unlock()
+}
+
+func decrease(num *int) {
+	mylock.Lock()
+	*num--
+	mylock.Unlock()
+}
+func raceConditionSafe() {
+
+	done := make(chan struct{})
+	defer close(done)
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for range 10 {
+			select {
+			case <-done:
+				return
+			default:
+				increase(&heapAllocation)
+				println(heapAllocation)
+			}
+		}
+
+	}()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for range 10 {
+			select {
+			case <-done:
+				return
+			default:
+				decrease(&heapAllocation)
+				println(heapAllocation)
+			}
+		}
+
+	}()
+	wg.Wait()
+}
+
+```
+### this alomost all we talk about on this chapter alos the Rlock Runlock with mutex package
+
+
+
+
+# ch11
+
+
+## Reflection 
+### Go provides a mechanism to update var iables and inspect their values at runtime
+### Sometimes we need to write a function capable of dealing uniformly with values of types that
+### don’t satisfy a common interface, don’t have a known representation, or don’t exist at the time
+### we design the function—or even all three.
+```go
+func Sprint(x interface{}) string {
+	type stringer interface {
+		String() string
+	}
+	switch x := x.(type) {
+	case stringer:
+		return x.String()
+	case string:
+		return x
+	case int:
+		return strconv.Itoa(x)
+		// ...similar cases for int16, uint32, and so on...
+	case bool:
+		if x {
+			return "true"
+		}
+		return "false"
+	default:
+		// array, chan, func, map, pointer, slice, struct
+		return "???"
+	}
+}
+```
+### But how do we deal with other types, like []float64, map[string][]string, and so on? We
+### could add more cases, but the number of such types is infinite. And what about named types,
+### like url.Values? Even if the type switch had a case for its underlying type
+### map[string][]string, it wouldn’t match url.Values because the two types are not identical,
+### and the type switch cannot include a case for each type like url.Values because that
+### would require this library to depend upon its clients.
+
+
+
+### Reflection is provided by the reflect package. It defines two important types, Type and
+### Value. A Type represents a Go type. It is an interface with many methods for discriminating
+### among types and inspec ting their components, like the fields of a struct or the parameters of a
+### function. The sole implementation of reflect.Type is the type descriptor (§7.5), the same
+### entity that identifies the dynamic type of an interface value.
+
+
+```go 
+t := reflect.TypeOf(3) // a reflect.Type
+fmt.Println(t.String()) // "int"
+fmt.Println(t) // "int"
+var w io.Writer = os.Stdout
+fmt.Println(reflect.TypeOf(w)) // "*os.File"
+```
+
+
+
+### Notice that reflect.Type satisfies fmt.Stringer. Because printing the dynamic type of an
+### interface value is useful for debugging and logging, fmt.Printf provides a shorthand, %T, that
+### uses reflect.TypeOf internally:
+```go
+fmt.Printf("%T\n", 3) // "int"
+```
+
+### The other important type in the reflect package is Value. A reflect.Value can hold a
+### value of any type. The reflect.ValueOf function accepts any interface{} and returns a
+### reflect.Value containing the int erface’s dynamic value. As with reflect.TypeOf, the
+### results of reflect.ValueOf are always concrete, but a reflect.Value can hold interface values
+### too.
+
+
+```go
+v := reflect.ValueOf(3) // a reflect.Value
+fmt.Println(v) // "3"
+fmt.Printf("%v\n", v) // "3"
+fmt.Println(v.String()) // NOTE: "<int Value>"
+```
+
+### Like reflect.Type, reflect.Value also satisfies fmt.Stringer, but unless the Value holds
+### a string , the result of the String method reveals only the type. Instead, use the fmt package’s
+### %v verb, which treats reflect.Values specially.
+
+```go
+
+package format
+
+import (
+	"reflect"
+	"strconv"
+)
+
+// Any formats any value as a string.
+func Any(value interface{}) string {
+	return formatAtom(reflect.ValueOf(value))
+}
+
+// formatAtom formats a value without inspecting its internal structure.
+func formatAtom(v reflect.Value) string {
+	switch v.Kind() {
+	case reflect.Invalid:
+		return "invalid"
+	case reflect.Int, reflect.Int8, reflect.Int16,
+		reflect.Int32, reflect.Int64:
+		return strconv.FormatInt(v.Int(), 10)
+	case reflect.Uint, reflect.Uint8, reflect.Uint16,
+		reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+		return strconv.FormatUint(v.Uint(), 10)
+	// ...floating-point and complex cases omitted for brevity...
+	case reflect.Bool:
+		return strconv.FormatBool(v.Bool())
+	case reflect.String:
+		return strconv.Quote(v.String())
+	case reflect.Chan, reflect.Func, reflect.Ptr, reflect.Slice, reflect.Map:
+		return v.Type().String() + " 0x" +
+			strconv.FormatUint(uint64(v.Pointer()), 16)
+	default: // reflect.Array, reflect.Struct, reflect.Interface
+		return v.Type().String() + " value"
+
+```
+
+
+
+
+
+
+
+
+
+
+
